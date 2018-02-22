@@ -16,9 +16,19 @@
 let todoList = document.getElementById('todo-list')
 let newItem = document.getElementById('add')
 let allItems = document.getElementsByTagName('li')
-console.log(allItems)
 
-//Add a task to the list after enter pressed
+let toggleAllCheckbox = document.getElementById('toggle-all')
+//set toggleAllCheckbox to default uncomplete
+toggleAllCheckbox.classList.add('uncomplete')
+toggleAllCheckbox.state = 'uncomplete'
+console.log(toggleAllCheckbox)
+toggleAllCheckbox.addEventListener('click', function(event){
+  toggleAllItems()
+})
+
+let listLength = document.getElementById('todo-length')
+
+//Add a task to the list after enter key is pressed
 //Only when there is text in the field
 newItem.addEventListener('keyup', function(event) {
   if(event.keyCode === 13 && this.value){
@@ -57,6 +67,9 @@ function addItem(itemText) {
   item.appendChild(reorderIcon)
   item.appendChild(removeButton)
   todoList.appendChild(item)
+  listLength.innerText = allItems.length + ' remaining items'
+  console.log(allItems.length)
+
 }
 
 function removeItem(item) {
@@ -65,12 +78,12 @@ function removeItem(item) {
 
 //Toggle the completed status of an item
 function toggleSingleItem(item) {
-  if (item.children[0].innerText === 'uncomplete'){
+  if (item.children[0].className === 'uncomplete'){
     item.children[0].innerText = 'complete'
     item.children[0].classList.remove('uncomplete')
     item.children[0].classList.add('complete')
   }
-  else if (item.children[0].innerText === 'complete') {
+  else if (item.children[0].className === 'complete') {
     item.children[0].innerText = 'uncomplete'
     item.children[0].classList.remove('complete')
     item.children[0].classList.add('uncomplete')
@@ -78,9 +91,27 @@ function toggleSingleItem(item) {
   console.log(item.children[0].innerText)
 }
 
-//add click event listener to all items
-//allItems.forEach(function(item) {
-  // item.addEventListener('click', function(event){
-  //   toggleSingleItem(item)
-  //})
-//})
+//toggle itemState of all items to complete
+function toggleAllItems() {
+  if (toggleAllCheckbox.state === 'uncomplete'){
+
+  console.log("within the uncomplete toggle func")
+    for(let i = 0; i < allItems.length; i++){
+      allItems[i].children[0].innerText = 'complete'
+      allItems[i].children[0].classList.remove('uncomplete')
+      allItems[i].children[0].classList.add('complete')
+    }
+    toggleAllCheckbox.state = 'complete'
+  }
+  else if (toggleAllCheckbox.state === 'complete'){
+
+  console.log("within the complete toggle func")
+    for(let i = 0; i < allItems.length; i++){
+      allItems[i].children[0].innerText = 'uncomplete'
+      allItems[i].children[0].classList.remove('complete')
+      allItems[i].children[0].classList.add('uncomplete')
+    }
+    toggleAllCheckbox.state = 'uncomplete'
+  }
+
+}
