@@ -14,32 +14,73 @@
 
 
 let todoList = document.getElementById('todo-list')
-let item = document.getElementById('add')
+let newItem = document.getElementById('add')
+let allItems = document.getElementsByTagName('li')
+console.log(allItems)
 
 //Add a task to the list after enter pressed
 //Only when there is text in the field
-item.addEventListener('keyup', function(event) {
+newItem.addEventListener('keyup', function(event) {
   if(event.keyCode === 13 && this.value){
     addItem(this.value)
+    //Clear text field after enter is pressed
+    this.value = ''
   }
   else if(!this.value) alert('Field cannot be empty')
 })
 
+//All new items get added as uncomplete
 function addItem(itemText) {
-  let newItem = document.createElement('li')
-  let uncomplete = document.createElement('div')
+  let item = document.createElement('li')
+  item.innerText = itemText
+  item.classList.add('single-item')
+
+  let itemState = document.createElement('div')
+  itemState.innerText = 'uncomplete'
+  itemState.classList.add('uncomplete')
+  itemState.addEventListener('click', function(event) {
+    toggleSingleItem(item)
+  })
+
   let reorderIcon = document.createElement('div')
+  reorderIcon.classList.add('reorder')
+
   let removeButton = document.createElement('button')
-
-  newItem.innerText = itemText
+  removeButton.innerText = 'remove'
   removeButton.classList.add('removeButton')
-  uncomplete.classList.add('uncomplete')
+  removeButton.addEventListener('click', function(event) {
+    removeItem(item)
+  })
 
-  newItem.appendChild(uncomplete)
-  newItem.appendChild(reorderIcon)
-  newItem.appendChild(removeButton)
-  todoList.appendChild(newItem)
+
+  item.appendChild(itemState)
+  item.appendChild(reorderIcon)
+  item.appendChild(removeButton)
+  todoList.appendChild(item)
 }
 
+function removeItem(item) {
+  todoList.removeChild(item)
+}
 
+//Toggle the completed status of an item
+function toggleSingleItem(item) {
+  if (item.children[0].innerText === 'uncomplete'){
+    item.children[0].innerText = 'complete'
+    item.children[0].classList.remove('uncomplete')
+    item.children[0].classList.add('complete')
+  }
+  else if (item.children[0].innerText === 'complete') {
+    item.children[0].innerText = 'uncomplete'
+    item.children[0].classList.remove('complete')
+    item.children[0].classList.add('uncomplete')
+  }
+  console.log(item.children[0].innerText)
+}
 
+//add click event listener to all items
+//allItems.forEach(function(item) {
+  // item.addEventListener('click', function(event){
+  //   toggleSingleItem(item)
+  //})
+//})
