@@ -3,23 +3,29 @@
   <head>
     <meta charset="UTF-8">
     <title>Pure JS Todo</title>
-    <link rel="stylesheet" href="style.css" type="text/css">
+
+    <!-- CSS files -->
+    <link rel="stylesheet" href="src/css/styles.css" type="text/css">
   </head>
   <body>
-    <!-- Comment -->
-    <div class="container">
-      <form class="add-item-form">
-        <label>Todo</label>
-        <input class="input-box" type="text" value="Enter todo item">
-      </form>
-      <ul class="item-list-container">
-        <li class="single-item">item</li>
-        <li>item</li>
-        <li>item</li>
+    <header>
+      <label>Todo</label>
+      <input type="text" value="Enter todo item">
+    </header>
+    <list>
+      <ul>
+        <!--CSS Checkbox
+          <li>Item</li>
+          Reorder Icon
+          <button>Delete Icon</button>
+        -->
       </ul>
-      <div>toggle all tasks state</div>
-    </div>
+    </list>
+    <footer>
+      <!--Toggle all items as completed/notcompleted -->
+    </footer>
 
-    <script type="text/javascript" scr="main.js"></script>
+    <!-- Javascript Files -->
+    <script src="src/js/main.js"></script>
   </body>
 </html>
