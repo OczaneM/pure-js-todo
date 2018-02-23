@@ -51,7 +51,8 @@ const Todo = {
     this.addToRemainingItems()
     if(this.list.children.length > 1) {
       item.appendChild(upArrow) // current last child
-      this.updateArrows(upArrow, downArrow)
+      // send the next to last child to get its arrow updated
+      this.updateArrows(downArrow, this.list.children[this.list.children.length-2])
     }
   },
 
@@ -126,43 +127,73 @@ const Todo = {
     let arrow = document.createElement('div')
     arrow.classList.add(arrowType)
     arrow.addEventListener('click', function(event) {
-      self.updateOrder(item, arrowType)
+      self.updateOrder(item, arrow)
     })
     return arrow
   },
 
   // Updates the order of nodes in the list tree
   // when an arrow is clicked
-  updateOrder: function(item, arrowType) {
+  updateOrder: function(item, arrow) {
     // Use the loop to search for the child index
     for (let i = 0; i < this.allItems.length; i++){
       if (this.allItems[i] == item)
-        if (arrowType === 'down-arrow'){
+        if (arrow.className === 'down-arrow'){
           this.list.insertBefore(this.list.children[i+1], item)
-          //this.updateAllArrows(item)
+          this.updateArrows(arrow, item)
           break;
         }
-        else if (arrowType === 'up-arrow'){
+        else if (arrow.className === 'up-arrow'){
           this.list.insertBefore(item, this.list.children[i-1])
-          //this.updateArrow(item)
+          this.updateArrows(arrow, item)
           break;
         }
     }
   },
 
-  // Updates the arrow classes displayed on each item child
+  // Updates the arrow of an added item
   // after list has been updated
-  updateArrows: function(upArrow, downArrow) {
-    if (this.currentItem === null){
-      this.currentItem = this.list.firstChild
-      this.currentItem.appendChild(downArrow)
-      this.currentItem = this.list.firstChild.nextSibling
+  updateArrows: function(arrow, item) {
+    let firstItem = this.list.firstChild
+    let lastItem = this.list.lastChild
+    if (arrow.className === 'down-arrow'){
+      if (!firstItem.contains(arrow)){
+        firstItem.appendChild(arrow)
+      }
+      if (lastItem.contains(arrow)){
+        lastItem.removeChild(arrow)
+      }
+      //update arrow of sent item
+      if(item !== firstItem && item !== lastItem && !item.contains(arrow)){
+        item.appendChild(arrow)
+      }
     }
-    else {
-      this.currentItem.appendChild(downArrow)
-      this.currentItem = this.currentItem.nextSibling
+    else if (arrow.className === 'up-arrow'){
+      if (firstItem.contains(arrow)){
+        firstItem.removeChild(arrow)
+      }
+      if (!lastItem.contains(arrow)){
+        lastItem.removeChild(arrow)
+      }
+    }
+    // if (this.currentItem === null){
+    //   this.currentItem = this.list.firstChild
+    //   this.currentItem.appendChild(downArrow)
+    //   this.currentItem = this.list.firstChild.nextSibling
+    // }
+
+    // else {
+    //   this.currentItem.appendChild(downArrow)
+    //   this.currentItem = this.currentItem.nextSibling
+    // }
+  },
+
+  checkLastChild: function(item){
+    if (item === this.list.lastChild){
+      item.removeChild(item.children)
     }
   },
+
 
   addToRemainingItems: function() {
     this.remainingItemsAmount++
