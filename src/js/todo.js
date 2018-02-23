@@ -11,19 +11,27 @@ const Todo = {
 
   //Methods of the todo
   init: function() {
+    //storing this context for eventListeners
+    let self = this
+
     this.toggleAll.state = 'uncomplete'
     this.toggleAll.classList.add('uncomplete')
     this.toggleAll.addEventListener('click', function(event){
-      this.toggleAllItems()
+      self.toggleAllItems()
     } )
   },
 
   addItem: function(itemText) {
+    //storing this context for eventListeners
+    let self = this
+
     let item = document.createElement('li')
     item.innerText = itemText
 
     let removeButton = this.addButton('remove')
-    removeButton.addEventListener('click', event => removeItem(item))
+    removeButton.addEventListener('click', function(event) {
+      self.removeItem(item)
+    })
 
     let itemState = this.setItemState(item)
 
@@ -48,11 +56,16 @@ const Todo = {
   },
 
   setItemState: function(item) {
+    //storing this context for eventListeners
+    let self = this
+
     let itemState = document.createElement('div')
     itemState.innerText = 'uncomplete'
     //itemState will be default uncomplete
-    item.classList.add('uncomplete')
-    itemState.addEventListener('click', event => checkItemStatus(item))
+    itemState.classList.add('uncomplete')
+    itemState.addEventListener('click', function(event) {
+      self.checkItemStatus(item)
+    })
 
     return itemState
   },
@@ -86,7 +99,7 @@ const Todo = {
       item.children[0].innerText = 'complete'
       item.children[0].classList.remove('uncomplete')
       item.children[0].classList.add('complete')
-      this.strikeTroughItem(item)
+      this.strikeThroughItem(item)
   },
 
   markAsUncomplete: function(item) {
@@ -98,22 +111,24 @@ const Todo = {
 
   strikeThroughItem: function(item) {
     //add CSS attribute to strike through item text
+    console.log("Striked through")
   },
 
   unStrikeItem: function(item) {
     //remove CSS attribute to strike through item text
+    console.log("Unstriked!")
   },
 
   toggleAllItems: function() {
     if (this.toggleAll.state === 'uncomplete'){
       for (let i = 0; i < this.allItems.length; i++){
-        this.markAsComplete(allItems[i])
+        this.markAsComplete(this.allItems[i])
       }
       this.toggleAll.state = 'complete'
     }
     else {
       for (let i = 0; i < this.allItems.length; i++){
-        this.markAsUncomplete(allItems[i])
+        this.markAsUncomplete(this.allItems[i])
       }
       this.toggleAll.state = 'uncomplete'
     }
