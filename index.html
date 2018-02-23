@@ -4,27 +4,39 @@
     <meta charset="UTF-8">
     <title>Pure JS Todo</title>
 
-    <!-- CSS files -->
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="src/css/styles.css" type="text/css">
   </head>
+
   <body>
-    <header>
-      <label>Todo</label>
-      <input type="text" placeholder="Enter todo item" id="add">
-    </header>
-    <list>
-      <ul id="todo-list">
-        <!--CSS Checkbox
-          <li>Item Text</li>
-          Reorder Icon
-          <button classname="delete-item">Delete Icon</button>
-        -->
-      </ul>
-    </list>
-    <footer>
-      <div id="toggle-all">ToggleAll Checkbox</div>
-      <div id="todo-length"></div>
-    </footer>
+    <div class="wrapper">
+      <header>
+        <div class="box-container box-gradient">
+          <label>Todo</label>
+          <input type="text" placeholder="Enter todo item" id="add-item">
+        </div>
+      </header>
+      <main>
+        <ul id="todo-list">
+          <li class="box-container">
+            <div class="uncomplete"><!--Item State--></div>
+            <div class="text-area">Item Text</div>
+            <button class="remove">Remove</button>
+          </li>
+          <li class="box-container">
+            <div class="complete"><!--Item State--></div>
+            <div class="text-area">Item Text</div>
+            <button class="remove">Remove</button>
+          </li>
+        </ul>
+      </main>
+      <footer>
+        <div class="box-container box-gradient">
+          <div id="toggle-all" class="uncomplete">ToggleAll Checkbox</div>
+          <div id="todo-length"></div>
+        </div>
+      </footer>
+    </div>
 
     <!-- Javascript Files -->
     <script src="src/js/todo.js"></script>
