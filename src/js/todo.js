@@ -19,7 +19,7 @@ const Todo = {
       self.toggleAllItems()
     } )
 
-    this.remainingItemsText.innerText = 1
+    this.remainingItemsText.innerText = 0 + ' items remaining'
   },
 
   addItem: function(itemText) {
@@ -60,7 +60,6 @@ const Todo = {
   //Button type must be a pre-existing style class
   addButton: function(buttonType) {
     let newButton = document.createElement('button')
-    newButton.innerText = buttonType
     newButton.classList.add(buttonType)
     return newButton
   },
@@ -84,7 +83,8 @@ const Todo = {
     let textArea = document.createElement('div')
     textArea.classList.add('text-area')
     textArea.innerText = itemText
-    textArea.addEventListener('dblclick', function() {
+    // Double click does not work on mobile touch screen
+    textArea.addEventListener('dblclick', function(event) {
       self.addEditField(textArea, item)
     })
     return textArea

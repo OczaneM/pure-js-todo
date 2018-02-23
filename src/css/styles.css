@@ -25,8 +25,12 @@ input {
   margin-top: -1px; /* crude aligning box borders on top of each other */
 }
 
+.box-gradient {
+  background: linear-gradient(#f0f0f0, #dfdfdf)
+}
+
 /* Overriding block display of all the classes within box-container */
-input, label, .uncomplete, .complete, .text-area, .remove, #todo-length{
+input, label, .uncomplete, .complete, .text-area, .remove, .unchecked-amount-text{
   display: inline-block;
 }
 
@@ -55,20 +59,26 @@ main ul {
 .uncomplete {
   width: 30px;
   height: 30px;
-  border: 1px solid #c3c3c3;
+  border: 1px solid #999999;
 }
 
 .complete {
   width: 30px;
   height: 30px;
-  border: 1px solid #c3c3c3;
+  border: 1px solid #999999;
+  background-image: url('../images/check-mark.svg');
+  background-size: 30px 28px;
+  background-color: transparent;
 }
 
-.text-area {
+li input, .text-area {
   width: 70%;
   height: 30px;
-  padding-left: 20px;
+  margin-left: 10px;
   vertical-align: text-bottom;
+  line-height: 30px;
+  overflow-x: hidden;
+  /* Add characte limit to item */
 }
 
 /* Buttons */
@@ -87,3 +97,8 @@ main ul {
 
 /** FOOTER STYLES **/
 
+.unchecked-amount-text {
+  position: absolute;
+  right: 5%;
+  top: 22px;
+}
