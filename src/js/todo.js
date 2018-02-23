@@ -38,11 +38,15 @@ const Todo = {
       self.removeItem(item)
     })
 
-    //this.setReorderIcon(item)
+    let upArrow = this.setOrderArrows(item, 'up-arrow')
+
+    let downArrow = this.setOrderArrows(item, 'down-arrow')
 
     item.appendChild(itemState)
     item.appendChild(textArea)
     item.appendChild(removeButton)
+    item.appendChild(upArrow)
+    item.appendChild(downArrow)
     this.list.appendChild(item)
     this.addToRemainingItems()
   },
@@ -111,10 +115,37 @@ const Todo = {
     item.replaceChild(editedTextArea, item.children[1])
   },
 
-  setReorderIcon: function(item) {
-    //if item is firstchild in Nodelist, set top up-arrow order visibility to null
-    //if item is laslchild, set down-arrow visibility to null
-    //if item is neither, set both arrows visibility to show
+  setOrderArrows: function(item, arrowType) {
+    // For event listener
+    let self = this
+
+    let arrow = document.createElement('div')
+    arrow.classList.add(arrowType)
+    arrow.addEventListener('click', function(event) {
+      self.updateOrder(item, arrowType)
+    })
+    return arrow
+  },
+
+  updateOrder: function(item, arrowType) {
+    // Use the loop to search for the child index
+    for (let i = 0; i < this.allItems.length; i++){
+      if (this.allItems[i] == item)
+        if (arrowType === 'down-arrow'){
+          this.list.insertBefore(this.list.children[i+1], item)
+          this.updateArrow(item)
+          break;
+        }
+        else if (arrowType === 'up-arrow'){
+          this.list.insertBefore(item, this.list.children[i-1])
+          this.updateArrow(item)
+          break;
+        }
+    }
+  },
+
+  updateArrow: function(item) {
+
   },
 
   addToRemainingItems: function() {
