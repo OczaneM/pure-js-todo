@@ -3,10 +3,12 @@
 const Todo = {
   //Data members of the todo
   list: document.getElementById('todo-list'),
+  // Can eliminate allItems for using list.children instead
   allItems: document.getElementsByTagName('li'),
   toggleAll: document.getElementById('toggle-all'),
   remainingItemsText: document.getElementById('todo-length'),
   remainingItemsAmount: 0,
+  currentItem: null, // for keeping track of item arrows
 
 
   // Methods of the todo
@@ -45,10 +47,12 @@ const Todo = {
     item.appendChild(itemState)
     item.appendChild(textArea)
     item.appendChild(removeButton)
-    item.appendChild(upArrow)
-    item.appendChild(downArrow)
     this.list.appendChild(item)
     this.addToRemainingItems()
+    if(this.list.children.length > 1) {
+      item.appendChild(upArrow) // current last child
+      this.updateAllArrows(upArrow, downArrow)
+    }
   },
 
   removeItem: function(item) {
@@ -127,25 +131,37 @@ const Todo = {
     return arrow
   },
 
+  // Updates the order of nodes in the list tree
+  // when an arrow is clicked
   updateOrder: function(item, arrowType) {
     // Use the loop to search for the child index
     for (let i = 0; i < this.allItems.length; i++){
       if (this.allItems[i] == item)
         if (arrowType === 'down-arrow'){
           this.list.insertBefore(this.list.children[i+1], item)
-          this.updateArrow(item)
+          //this.updateAllArrows(item)
           break;
         }
         else if (arrowType === 'up-arrow'){
           this.list.insertBefore(item, this.list.children[i-1])
-          this.updateArrow(item)
+          //this.updateArrow(item)
           break;
         }
     }
   },
 
-  updateArrow: function(item) {
-
+  // Updates the arrow classes displayed on each item child
+  // after list has been updated
+  updateAllArrows: function(upArrow, downArrow) {
+    if (this.currentItem === null){
+      this.currentItem = this.list.firstChild
+      this.currentItem.appendChild(downArrow)
+      this.currentItem = this.list.firstChild.nextSibling
+    }
+    else {
+      this.currentItem.appendChild(downArrow)
+      this.currentItem = this.currentItem.nextSibling
+    }
   },
 
   addToRemainingItems: function() {
