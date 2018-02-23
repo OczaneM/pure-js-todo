@@ -62,14 +62,10 @@ function addItem(itemText) {
     removeItem(item)
   })
 
-
   item.appendChild(itemState)
   item.appendChild(reorderIcon)
   item.appendChild(removeButton)
   todoList.appendChild(item)
-  listLength.innerText = allItems.length + ' remaining items'
-  console.log(allItems.length)
-
 }
 
 function removeItem(item) {
@@ -94,8 +90,6 @@ function toggleSingleItem(item) {
 //toggle itemState of all items to complete
 function toggleAllItems() {
   if (toggleAllCheckbox.state === 'uncomplete'){
-
-  console.log("within the uncomplete toggle func")
     for(let i = 0; i < allItems.length; i++){
       allItems[i].children[0].innerText = 'complete'
       allItems[i].children[0].classList.remove('uncomplete')
@@ -104,8 +98,6 @@ function toggleAllItems() {
     toggleAllCheckbox.state = 'complete'
   }
   else if (toggleAllCheckbox.state === 'complete'){
-
-  console.log("within the complete toggle func")
     for(let i = 0; i < allItems.length; i++){
       allItems[i].children[0].innerText = 'uncomplete'
       allItems[i].children[0].classList.remove('complete')
