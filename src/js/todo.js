@@ -9,9 +9,10 @@ const Todo = {
   remainingItemsAmount: 0,
 
 
-  //Methods of the todo
+  // Methods of the todo
+
   init: function() {
-    //storing this context for eventListeners
+    // storing this context for eventListeners
     let self = this
 
     this.toggleAll.state = 'uncomplete'
@@ -19,6 +20,8 @@ const Todo = {
     this.toggleAll.addEventListener('click', function(event){
       self.toggleAllItems()
     } )
+
+    this.remainingItemsText.innerText = 0
   },
 
   addItem: function(itemText) {
@@ -26,7 +29,8 @@ const Todo = {
     let self = this
 
     let item = document.createElement('li')
-    item.innerText = itemText
+
+    let textArea = this.setTextArea(itemText, item)
 
     let removeButton = this.addButton('remove')
     removeButton.addEventListener('click', function(event) {
@@ -38,12 +42,19 @@ const Todo = {
     this.setReorderIcon(item)
 
     item.appendChild(itemState)
+    item.appendChild(textArea)
     item.appendChild(removeButton)
     this.list.appendChild(item)
+    this.addToRemainingItems()
   },
 
-  removeItem: function(item){
+  removeItem: function(item) {
     this.list.removeChild(item)
+    alert('Item removed!')
+    // Only want to remove from remaining items if itemState is set to uncomplete
+    if(item.children[0].className === 'uncomplete'){
+      this.removeFromRemainingItems()
+    }
   },
 
   //Argument must be the type of button to be added in string format
@@ -68,6 +79,39 @@ const Todo = {
     })
 
     return itemState
+  },
+
+  setTextArea: function(itemText, item) {
+    let self = this
+
+    let textArea = document.createElement('div')
+    textArea.classList.add('item-text')
+    textArea.innerText = itemText
+    textArea.addEventListener('dblclick', function() {
+      self.addEditField(textArea, item)
+    })
+    return textArea
+  },
+
+  addEditField: function(textArea, item) {
+    let self = this
+
+    let editItemForm = document.createElement('INPUT')
+    editItemForm.type = 'text'
+    editItemForm.value = textArea.innerText
+    editItemForm.addEventListener('keyup', function(event) {
+      event.preventDefault()
+      if(event.keyCode === 13 && this.value){
+        self.editItem(this.value, item)
+      }
+    })
+
+    item.replaceChild(editItemForm, textArea)
+  },
+
+  editItem: function(itemText, item) {
+    let editedTextArea = this.setTextArea(itemText, item)
+    item.replaceChild(editedTextArea, item.children[1])
   },
 
   setReorderIcon: function(item) {
@@ -100,6 +144,7 @@ const Todo = {
       item.children[0].classList.remove('uncomplete')
       item.children[0].classList.add('complete')
       this.strikeThroughItem(item)
+      this.removeFromRemainingItems()
   },
 
   markAsUncomplete: function(item) {
@@ -107,28 +152,33 @@ const Todo = {
       item.children[0].classList.remove('complete')
       item.children[0].classList.add('uncomplete')
       this.unStrikeItem(item)
+      this.addToRemainingItems()
   },
 
   strikeThroughItem: function(item) {
     //add CSS attribute to strike through item text
-    console.log("Striked through")
   },
 
   unStrikeItem: function(item) {
     //remove CSS attribute to strike through item text
-    console.log("Unstriked!")
   },
 
   toggleAllItems: function() {
     if (this.toggleAll.state === 'uncomplete'){
       for (let i = 0; i < this.allItems.length; i++){
-        this.markAsComplete(this.allItems[i])
+        //we only want to toggle uncomplete items
+        if (this.allItems[i].children[0].className === 'uncomplete'){
+          this.markAsComplete(this.allItems[i])
+        }
       }
       this.toggleAll.state = 'complete'
     }
     else {
       for (let i = 0; i < this.allItems.length; i++){
-        this.markAsUncomplete(this.allItems[i])
+        //we only want to toggle complete items
+        if (this.allItems[i].children[0].className === 'complete') {
+          this.markAsUncomplete(this.allItems[i])
+        }
       }
       this.toggleAll.state = 'uncomplete'
     }
