@@ -1,5 +1,18 @@
 'use strict'
 
 const todo = Object.create(Todo)
-
+todo.init()
 console.log(todo)
+
+//Add a task to the list after enter key is pressed
+//Only when there is text in the field
+let newItem = document.getElementById('add')
+newItem.addEventListener('keyup', function(event) {
+  event.preventDefault()
+  if(event.keyCode === 13 && this.value){
+    todo.addItem(this.value)
+    this.value = ''
+  }
+  else if (!this.value) alert('Field cannot be empty!')
+})
+

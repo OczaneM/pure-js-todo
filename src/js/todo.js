@@ -14,7 +14,6 @@ const Todo = {
   init: function() {
     // storing this context for eventListeners
     let self = this
-
     this.toggleAll.state = 'uncomplete'
     this.toggleAll.classList.add('uncomplete')
     this.toggleAll.addEventListener('click', function(event){
@@ -32,14 +31,14 @@ const Todo = {
 
     let textArea = this.setTextArea(itemText, item)
 
+    let itemState = this.setItemState(item)
+
     let removeButton = this.addButton('remove')
     removeButton.addEventListener('click', function(event) {
       self.removeItem(item)
     })
 
-    let itemState = this.setItemState(item)
-
-    this.setReorderIcon(item)
+    //this.setReorderIcon(item)
 
     item.appendChild(itemState)
     item.appendChild(textArea)
@@ -50,8 +49,8 @@ const Todo = {
 
   removeItem: function(item) {
     this.list.removeChild(item)
-    alert('Item removed!')
-    // Only want to remove from remaining items if itemState is set to uncomplete
+    alert('Item removed!') //make alart pop up after removal
+    // Only want to remove from remainingItems if itemState is set to uncomplete
     if(item.children[0].className === 'uncomplete'){
       this.removeFromRemainingItems()
     }
@@ -69,7 +68,6 @@ const Todo = {
   setItemState: function(item) {
     //storing this context for eventListeners
     let self = this
-
     let itemState = document.createElement('div')
     itemState.innerText = 'uncomplete'
     //itemState will be default uncomplete
