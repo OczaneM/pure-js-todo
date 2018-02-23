@@ -6,7 +6,7 @@ console.log(todo)
 
 //Add a task to the list after enter key is pressed
 //Only when there is text in the field
-let newItem = document.getElementById('add')
+let newItem = document.getElementById('add-item')
 newItem.addEventListener('keyup', function(event) {
   event.preventDefault()
   if(event.keyCode === 13 && this.value){

@@ -15,12 +15,11 @@ const Todo = {
     // storing this context for eventListeners
     let self = this
     this.toggleAll.state = 'uncomplete'
-    this.toggleAll.classList.add('uncomplete')
     this.toggleAll.addEventListener('click', function(event){
       self.toggleAllItems()
     } )
 
-    this.remainingItemsText.innerText = 0
+    this.remainingItemsText.innerText = 1
   },
 
   addItem: function(itemText) {
@@ -69,8 +68,7 @@ const Todo = {
     //storing this context for eventListeners
     let self = this
     let itemState = document.createElement('div')
-    itemState.innerText = 'uncomplete'
-    //itemState will be default uncomplete
+    //itemState default as uncomplete
     itemState.classList.add('uncomplete')
     itemState.addEventListener('click', function(event) {
       self.checkItemStatus(item)
@@ -83,7 +81,7 @@ const Todo = {
     let self = this
 
     let textArea = document.createElement('div')
-    textArea.classList.add('item-text')
+    textArea.classList.add('text-area')
     textArea.innerText = itemText
     textArea.addEventListener('dblclick', function() {
       self.addEditField(textArea, item)
@@ -120,12 +118,12 @@ const Todo = {
 
   addToRemainingItems: function() {
     this.remainingItemsAmount++
-    this.remainingItemsText.innerText = this.remainingItemsAmount
+    this.remainingItemsText.innerText = this.remainingItemsAmount + " items remaining"
   },
 
   removeFromRemainingItems: function() {
     this.remainingItemsAmount--
-    this.remainingItemsText.innerText = this.remainingItemsAmount
+    this.remainingItemsText.innerText = this.remainingItemsAmount + " items remaining"
   },
 
   checkItemStatus: function(item) {
@@ -138,17 +136,13 @@ const Todo = {
   },
 
   markAsComplete: function(item) {
-      item.children[0].innerText = 'complete'
-      item.children[0].classList.remove('uncomplete')
-      item.children[0].classList.add('complete')
+      item.children[0].classList.replace('uncomplete', 'complete')
       this.strikeThroughItem(item)
       this.removeFromRemainingItems()
   },
 
   markAsUncomplete: function(item) {
-      item.children[0].innerText = 'uncomplete'
-      item.children[0].classList.remove('complete')
-      item.children[0].classList.add('uncomplete')
+      item.children[0].classList.replace('complete', 'uncomplete')
       this.unStrikeItem(item)
       this.addToRemainingItems()
   },
@@ -170,6 +164,7 @@ const Todo = {
         }
       }
       this.toggleAll.state = 'complete'
+      this.toggleAll.classList.replace('uncomplete', 'complete')
     }
     else {
       for (let i = 0; i < this.allItems.length; i++){
@@ -179,6 +174,7 @@ const Todo = {
         }
       }
       this.toggleAll.state = 'uncomplete'
+      this.toggleAll.classList.replace('complete', 'uncomplete')
     }
   }
 
