@@ -27,6 +27,7 @@ const Todo = {
     let self = this
 
     let item = document.createElement('li')
+    item.classList.add('box-container')
 
     let textArea = this.setTextArea(itemText, item)
 
