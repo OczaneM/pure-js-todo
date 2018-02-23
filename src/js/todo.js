@@ -10,7 +10,7 @@ const Todo = {
 
 
   //Methods of the todo
-  init: () => {
+  init: function() {
     this.toggleAll.state = 'uncomplete'
     this.toggleAll.classList.add('uncomplete')
     this.toggleAll.addEventListener('click', function(event){
@@ -18,7 +18,7 @@ const Todo = {
     } )
   },
 
-  addItem: (itemText) => {
+  addItem: function(itemText) {
     let item = document.createElement('li')
     item.innerText = itemText
 
@@ -34,18 +34,20 @@ const Todo = {
     this.list.appendChild(item)
   },
 
+  removeItem: function(item){
+    this.list.removeChild(item)
+  },
+
   //Argument must be the type of button to be added in string format
   //Button type must be a pre-existing style class
-  addButton: (buttonType) => {
+  addButton: function(buttonType) {
     let newButton = document.createElement('button')
     newButton.innerText = buttonType
     newButton.classList.add(buttonType)
     return newButton
   },
 
-  removeItem: (item) => this.list.removeChild(item),
-
-  setItemState: (item) => {
+  setItemState: function(item) {
     let itemState = document.createElement('div')
     itemState.innerText = 'uncomplete'
     //itemState will be default uncomplete
@@ -55,55 +57,66 @@ const Todo = {
     return itemState
   },
 
-  setReorderIcon: (item) => {
+  setReorderIcon: function(item) {
     //if item is firstchild in Nodelist, set top up-arrow order visibility to null
     //if item is laslchild, set down-arrow visibility to null
     //if item is neither, set both arrows visibility to show
   },
 
-  addToRemainingItems: () => {
+  addToRemainingItems: function() {
     this.remainingItemsAmount++
     this.remainingItemsText.innerText = this.remainingItemsAmount
   },
 
-  removeFromRemainingItems: () => {
+  removeFromRemainingItems: function() {
     this.remainingItemsAmount--
     this.remainingItemsText.innerText = this.remainingItemsAmount
   },
 
-  checkItemStatus: (item) => {
+  checkItemStatus: function(item) {
     if (item.children[0].className === 'uncomplete'){
       this.markAsComplete(item)
-      this.strikeTroughItem(item)
     }
     else if (item.children[0].className === 'complete'){
       this.markAsUncomplete(item)
-      this.unStrikeItem(item)
     }
   },
 
-  markAsComplete: (item) => {
-    if (item.children[0].className === 'uncomplete'){
+  markAsComplete: function(item) {
       item.children[0].innerText = 'complete'
       item.children[0].classList.remove('uncomplete')
       item.children[0].classList.add('complete')
-    }
+      this.strikeTroughItem(item)
   },
 
-  markAsUncomplete: (item) => {
-    if (item.children[0].className === 'complete') {
+  markAsUncomplete: function(item) {
       item.children[0].innerText = 'uncomplete'
       item.children[0].classList.remove('complete')
       item.children[0].classList.add('uncomplete')
-    }
+      this.unStrikeItem(item)
   },
 
-  strikeThroughItem: (item) => {
+  strikeThroughItem: function(item) {
     //add CSS attribute to strike through item text
   },
 
-  unStrikeItem: (item) => {
+  unStrikeItem: function(item) {
     //remove CSS attribute to strike through item text
+  },
+
+  toggleAllItems: function() {
+    if (this.toggleAll.state === 'uncomplete'){
+      for (let i = 0; i < this.allItems.length; i++){
+        this.markAsComplete(allItems[i])
+      }
+      this.toggleAll.state = 'complete'
+    }
+    else {
+      for (let i = 0; i < this.allItems.length; i++){
+        this.markAsUncomplete(allItems[i])
+      }
+      this.toggleAll.state = 'uncomplete'
+    }
   }
 
 
