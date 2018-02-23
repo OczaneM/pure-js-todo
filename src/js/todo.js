@@ -19,8 +19,6 @@ const Todo = {
   },
 
   addItem: (itemText) => {
-    this = this.bind(this)
-
     let item = document.createElement('li')
     item.innerText = itemText
 
@@ -48,8 +46,6 @@ const Todo = {
   removeItem: (item) => this.list.removeChild(item),
 
   setItemState: (item) => {
-    this = this.bind(this)
-
     let itemState = document.createElement('div')
     itemState.innerText = 'uncomplete'
     //itemState will be default uncomplete
