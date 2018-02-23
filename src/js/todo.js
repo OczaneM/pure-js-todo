@@ -51,7 +51,7 @@ const Todo = {
     this.addToRemainingItems()
     if(this.list.children.length > 1) {
       item.appendChild(upArrow) // current last child
-      this.updateAllArrows(upArrow, downArrow)
+      this.updateArrows(upArrow, downArrow)
     }
   },
 
@@ -152,7 +152,7 @@ const Todo = {
 
   // Updates the arrow classes displayed on each item child
   // after list has been updated
-  updateAllArrows: function(upArrow, downArrow) {
+  updateArrows: function(upArrow, downArrow) {
     if (this.currentItem === null){
       this.currentItem = this.list.firstChild
       this.currentItem.appendChild(downArrow)
