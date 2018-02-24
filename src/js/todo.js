@@ -55,6 +55,7 @@ const Todo = {
     item.appendChild(textArea)
     item.appendChild(removeButton)
     this.list.appendChild(item)
+    if (this.list.children.length%2 === 0) item.classList.add('grey-bg')
     this.addToRemainingItems()
 
     // Don't add arrows until list length > 1
@@ -236,11 +237,11 @@ const Todo = {
   },
 
   strikeThroughItem: function(item) {
-    //add CSS attribute to strike through item text
+    item.children[1].classList.add('strikethrough')
   },
 
   unStrikeItem: function(item) {
-    //remove CSS attribute to strike through item text
+    item.children[1].classList.remove('strikethrough')
   },
 
 

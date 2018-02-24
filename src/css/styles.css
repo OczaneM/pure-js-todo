@@ -26,7 +26,11 @@ input {
 }
 
 .box-gradient {
-  background: linear-gradient(#f0f0f0, #dfdfdf)
+  background: linear-gradient(#eeeded, #cccccc)
+}
+
+.grey-bg {
+  background: #f0f0f0;
 }
 
 /* Overriding block display of all the classes within box-container */
@@ -84,6 +88,11 @@ li input, .text-area {
   line-height: 30px;
   overflow: hidden;
   /* Add characte limit to item */
+}
+
+.strikethrough {
+  text-decoration: line-through;
+  color: #838383;
 }
 
 /* Shared properties */
