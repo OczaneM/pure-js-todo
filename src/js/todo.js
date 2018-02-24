@@ -198,13 +198,6 @@ const Todo = {
     }
   },
 
-  checkLastChild: function(item){
-    if (item === this.list.lastChild){
-      item.removeChild(item.children)
-    }
-  },
-
-
   addToRemainingItems: function() {
     this.remainingItemsAmount++
     this.remainingItemsText.innerText = this.remainingItemsAmount + " items remaining"
