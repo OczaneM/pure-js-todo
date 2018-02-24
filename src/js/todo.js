@@ -253,27 +253,36 @@ const Todo = {
     //remove CSS attribute to strike through item text
   },
 
+
   toggleAllItems: function() {
     if (this.toggleAll.state === 'uncomplete'){
-      for (let i = 0; i < this.allItems.length; i++){
-        //we only want to toggle uncomplete items
-        if (this.allItems[i].children[0].className === 'uncomplete'){
-          this.markAsComplete(this.allItems[i])
-        }
-      }
-      this.toggleAll.state = 'complete'
-      this.toggleAll.classList.replace('uncomplete', 'complete')
+      this.toggleAllAsComplete()
     }
     else {
-      for (let i = 0; i < this.allItems.length; i++){
-        //we only want to toggle complete items
-        if (this.allItems[i].children[0].className === 'complete') {
-          this.markAsUncomplete(this.allItems[i])
-        }
-      }
-      this.toggleAll.state = 'uncomplete'
-      this.toggleAll.classList.replace('complete', 'uncomplete')
+      this.toggleAllAsUncomplete()
     }
+  },
+
+  toggleAllAsComplete: function() {
+    for (let i = 0; i < this.list.children.length; i++){
+      // Only toggle items that are uncomplete
+      if (this.list.children[i].children[0].className === 'uncomplete'){
+        this.markAsComplete(this.list.children[i])
+      }
+    }
+    this.toggleAll.state = 'complete'
+    this.toggleAll.classList.replace('uncomplete', 'complete')
+  },
+
+  toggleAllAsUncomplete: function() {
+    for (let i = 0; i < this.list.children.length; i++){
+      //Only toggle items that are complete
+      if (this.list.children[i].children[0].className === 'complete') {
+        this.markAsUncomplete(this.list.children[i])
+      }
+    }
+    this.toggleAll.state = 'uncomplete'
+    this.toggleAll.classList.replace('complete', 'uncomplete')
   }
 
 
