@@ -1,17 +1,12 @@
 'use strict';
 
 const Todo = {
-  //Data members of the todo
   list: document.getElementById('todo-list'),
-  // Can eliminate allItems for using list.children instead
-  allItems: document.getElementsByTagName('li'),
   toggleAll: document.getElementById('toggle-all'),
   remainingItemsText: document.getElementById('todo-length'),
   remainingItemsAmount: 0,
-  currentItem: null, // for keeping track of item arrows
 
-
-  // Methods of the todo
+  //*** Methods of the todo ***//
 
   init: function() {
     // storing this context for eventListeners
@@ -20,14 +15,13 @@ const Todo = {
     this.toggleAll.addEventListener('click', function(event){
       self.toggleAllItems()
     } )
-
     this.remainingItemsText.innerText = 0 + ' items remaining'
   },
 
   // Finds the index of the item in the list
   findChildIndex: function(item) {
-    for(let i = 0; i < this.list.children.length; i++){
-      if (this.list.children[i] === item) return i
+    for(let i = 0; i < this.list.childNodes.length; i++){
+      if (this.list.childNodes[i] === item) return i
     }
   },
 
@@ -57,16 +51,6 @@ const Todo = {
       self.removeItem(item)
     })
 
-    let upArrow = this.setOrderArrows(item, 'up-arrow')
-    upArrow.addEventListener('click', function(event) {
-      self.moveUp(item, this)
-    })
-
-    let downArrow = this.setOrderArrows(item, 'down-arrow')
-    downArrow.addEventListener('click', function(event) {
-      self.moveDown(item, this)
-    })
-
     item.appendChild(itemState)
     item.appendChild(textArea)
     item.appendChild(removeButton)
@@ -75,17 +59,15 @@ const Todo = {
 
     // Don't add arrows until list length > 1
     if(this.list.children.length > 1) {
-      item.appendChild(upArrow) // current last child
-
-      // send the next to last child to get its arrow updated
-      this.updateArrows(downArrow, this.list.lastChild.previousSibling)
+      let previousItem = this.list.lastChild.previousSibling
+      this.addUpArrow(item)
+      this.addDownArrow(previousItem)
     }
   },
 
   removeItem: function(item) {
     this.list.removeChild(item)
     alert('Item removed!') // make alert pop up after removal
-
     // Only want to remove from remainingItems if itemState is set to uncomplete
     if(item.children[0].className === 'uncomplete'){
       this.removeFromRemainingItems()
@@ -149,62 +131,70 @@ const Todo = {
     item.replaceChild(editedTextArea, item.children[1])
   },
 
-  setOrderArrows: function(item, arrowType) {
+  addUpArrow: function(item) {
+    let self = this
     let arrow = document.createElement('div')
-    arrow.classList.add(arrowType)
-    return arrow
+    arrow.classList.add('up-arrow')
+    arrow.addEventListener('click', function(event) {
+      self.moveUp(item, this)
+    })
+    item.appendChild(arrow)
+  },
+
+  addDownArrow: function(item) {
+    let self = this
+    let arrow = document.createElement('div')
+    arrow.classList.add('down-arrow')
+    arrow.addEventListener('click', function(event) {
+      self.moveDown(item, this)
+    })
+    item.appendChild(arrow)
   },
 
   // Moves an item up in the list
   moveUp: function(item, arrow) {
-    let itemIndex = this.findChildIndex(item)
-    this.list.insertBefore(item, this.list.children[itemIndex-1])
-    this.updateArrows(arrow, item)
+    let sibling = item.previousSibling
+    this.list.insertBefore(item, sibling)
+    this.updateArrows(item, arrow)
+    this.updateArrows(sibling, arrow)
   },
 
   // Moves an item down in the list
   moveDown: function(item, arrow) {
     let itemIndex = this.findChildIndex(item)
-    this.list.insertBefore(this.list.children[itemIndex+1], item)
-    this.updateArrows(arrow, item)
+    let sibling = this.list.children[itemIndex+1].nextSibling
+    this.list.insertBefore(item, sibling)
+    this.updateArrows(item, arrow)
+    this.updateArrows(sibling, arrow)
   },
 
   // Updates the arrow classes of item argument
-  // and checks to make sure first and lat item on list
+  // and checks to make sure first and last item on list
   // have correct arrows
-  updateArrows: function(arrow, item) {
-    let firstItem = this.list.firstChild
-    let lastItem = this.list.lastChild
-    if (arrow.className === 'down-arrow'){
-      if (!firstItem.contains(arrow)){
-        firstItem.appendChild(arrow)
+  updateArrows: function(item, arrow) {
+    if (this.isFirstChild(item)){
+      if (arrow.className === 'down-arrow'){
+        if (!item.contains(arrow)) this.addDownArrow(item)
       }
-      if (lastItem.contains(arrow)){
-        lastItem.removeChild(arrow)
-      }
-      //update arrow of sent item
-      if(item !== firstItem && item !== lastItem && !item.contains(arrow)){
-        item.appendChild(arrow)
+      else if (arrow.className === 'up-arow'){
+        if(item.contains(arrow)) console.log("remove arro")
       }
     }
-    else if (arrow.className === 'up-arrow'){
-      if (firstItem.contains(arrow)){
-        firstItem.removeChild(arrow)
+    else if (this.isLastChild(item)){
+      if (arrow.className === 'up-arrow'){
+        if (!item.contains(arrow)) item.appendChild(arrow)
       }
-      if (!lastItem.contains(arrow)){
-        lastItem.appendChild(arrow)
+      else if (arrow.className === 'down-arrow') {
+        if (item.contains(arrow)) {
+          item.removeChild(arrow)
+        }
       }
     }
-    // if (this.currentItem === null){
-    //   this.currentItem = this.list.firstChild
-    //   this.currentItem.appendChild(downArrow)
-    //   this.currentItem = this.list.firstChild.nextSibling
-    // }
-
-    // else {
-    //   this.currentItem.appendChild(downArrow)
-    //   this.currentItem = this.currentItem.nextSibling
-    // }
+    else {
+      console.log(item)
+      if(item.children[3].className === 'down-arrow') this.addUpArrow(item)
+      else if (item.children[4] === null) this.addDownArrow(item)
+    }
   },
 
   checkLastChild: function(item){
