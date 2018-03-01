@@ -17,10 +17,21 @@ const Todo = {
       self.toggleAllItems()
     } )
 
-    this.remainingItemsText.innerText = 0 + ' items remaining'
+    // Reset items remianing
+    this.remainingItemsText.innerText = this.remainingItemsAmount + ' items remaining'
 
-    // populate list with local storage
     if (localStorage.list && localStorage.list !== '[]'){
+      this.populateList()
+    } else {
+      //pre-set todo items with instructions
+      this.addItem('Enter a new todo item in the input field.')
+      this.addItem('Click on the trashcan icon to remove a todo.')
+      this.addItem('Click on the checkmark to mark an item as done.')
+    }
+  },
+
+  // populate list with local storage
+  populateList: function() {
       this.listArray = JSON.parse(localStorage.list)
       this.listArray.forEach(element => {
         this.addItem(element.task, element.state)
@@ -28,17 +39,15 @@ const Todo = {
 
       // add missing classes to repopulated list
       for(let i = 0; i < this.list.children.length; i++){
-        if(this.list.children[i].children[0].className === 'complete')
+        if(this.list.children[i].children[0].className === 'complete'){
+          console.log('emoving...')
           this.strikeThroughItem(this.list.children[i])
+          this.removeFromRemainingItems()
+        }
+        else {
+          this.unStrikeItem(this.list.children[i])
+        }
       }
-    } else {
-      //pre-set todo items with instructions
-      this.addItem('Enter a new todo item in the input field.')
-      this.addItem('Click on the trashcan icon to remove a todo.')
-      this.addItem('Click on the checkmark to mark an item as done.')
-    }
-
-
   },
 
   saveToLocaleStorage: function() {
@@ -47,6 +56,7 @@ const Todo = {
     }
     localStorage.setItem('list', JSON.stringify(this.listArray))
     localStorage.setItem('toggleAll', this.toggleAll.state)
+    localStorage.setItem('remainingItems', this.remainingItemsAmount)
   },
 
   removeFromLocalStorage: function() {
