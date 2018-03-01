@@ -120,13 +120,17 @@ const Todo = {
     removeItem: function (item) {
       let previous = item.previousSibling, next = item.nextSibling
       this.list.removeChild(item)
-      console.log(previous, next)
-      if (this.list.children.length > 1){
+
+      // If list length > 2 then update arrows, otherwise just remove the arrows of the remaining items on list
+      if (this.list.children.length > 2){
         if (previous && previous.children) this.updateArrows(previous)
         if (next) this.updateArrows(next)
       } else {
         if (previous && previous.children) previous.removeChild(previous.children[3])
-        if (next) next.removeChild(next.children[3])
+        if (next) {
+          console.log('next')
+          next.removeChild(next.children[3])
+        }
       }
       alert('Item removed!') // make alert pop up after removal
       // Only want to remove from remainingItems if itemState is set to uncomplete
@@ -236,7 +240,7 @@ const Todo = {
     // have correct arrows
     updateArrows: function (item) {
       if (this.isFirstChild(item)) {
-        if (item.children[3] && item.children[3] === 'up-arrow') item.removeChild(item.children[3])
+        if (item.children[3] && item.children[3].className === 'up-arrow') item.removeChild(item.children[3])
       }
       else if (this.isLastChild(item)) {
         if (item.children[4]) item.removeChild(item.children[4])
