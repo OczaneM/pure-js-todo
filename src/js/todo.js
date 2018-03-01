@@ -20,7 +20,7 @@ const Todo = {
     this.remainingItemsText.innerText = 0 + ' items remaining'
 
     // populate list with local storage
-    if (localStorage.list){
+    if (localStorage.list && localStorage.list !== '[]'){
       this.listArray = JSON.parse(localStorage.list)
       this.listArray.forEach(element => {
         this.addItem(element.task, element.state)
@@ -47,6 +47,13 @@ const Todo = {
     }
     localStorage.setItem('list', JSON.stringify(this.listArray))
     localStorage.setItem('toggleAll', this.toggleAll.state)
+  },
+
+  removeFromLocalStorage: function() {
+    //need to refactor to only clear one item from storage at a time
+    localStorage.removeItem('list')
+    this.listArray = []
+    this.saveToLocaleStorage()
   },
 
   // Finds the index of the item in the list
@@ -109,7 +116,7 @@ const Todo = {
     if(item.children[0].className === 'uncomplete'){
       this.removeFromRemainingItems()
     }
-    this.saveToLocaleStorage()
+    this.removeFromLocalStorage()
   },
 
   // Argument must be the type of button to be added in string format
