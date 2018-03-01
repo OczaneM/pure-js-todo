@@ -12,38 +12,51 @@ const Todo = {
   init: function() {
     // storing this context for eventListeners
     let self = this
-    this.toggleAll.state = 'uncomplete'
+    this.toggleAll.state = localStorage.toggleAll || 'uncomplete'
     this.toggleAll.addEventListener('click', function(event){
       self.toggleAllItems()
     } )
+
     this.remainingItemsText.innerText = 0 + ' items remaining'
-    console.log(this.listArray)
+
+    // populate list with local storage
     if (localStorage.list){
-      console.log('Populated from list"')
       this.listArray = JSON.parse(localStorage.list)
       this.listArray.forEach(element => {
         this.addItem(element.task, element.state)
       })
+
+      // add missing classes to repopulated list
+      for(let i = 0; i < this.list.children.length; i++){
+        if(this.list.children[i].children[0].className === 'complete')
+          this.strikeThroughItem(this.list.children[i])
+      }
     } else {
       //pre-set todo items with instructions
       this.addItem('Enter a new todo item in the input field.')
       this.addItem('Click on the trashcan icon to remove a todo.')
       this.addItem('Click on the checkmark to mark an item as done.')
     }
+
+
   },
 
   saveToLocaleStorage: function() {
     for(let i = 0; i < this.list.children.length; i++){
-      this.listArray[i] = {task: this.list.children[i].children[1].outerText, state: this.list.children[0].children[0].className}
+      this.listArray[i] = {task: this.list.children[i].children[1].outerText, state: this.list.children[i].children[0].className}
     }
     localStorage.setItem('list', JSON.stringify(this.listArray))
-    console.log('STORE: ', this.store)
+    localStorage.setItem('toggleAll', this.toggleAll.state)
   },
 
   // Finds the index of the item in the list
   findChildIndex: function(item) {
-    for(let i = 0; i < this.list.childNodes.length; i++){
-      if (this.list.childNodes[i] === item) return i
+    console.log(this.list.children)
+    for(let i = 0; i < this.list.children.length; i++){
+      if (this.list.children[i] === item) {
+        console.log(i)
+        return i
+      }
     }
   },
 
@@ -57,7 +70,7 @@ const Todo = {
     return item === this.list.lastChild ? true : false
   },
 
-  addItem: function(itemText, state) {
+  addItem: function(itemText, storedState) {
     //storing this context for eventListeners
     let self = this
 
@@ -66,7 +79,7 @@ const Todo = {
 
     let textArea = this.setTextArea(itemText, item)
 
-    let itemState = this.setItemState(item, state)
+    let itemState = this.setItemState(item, storedState)
 
     let removeButton = this.addButton('remove')
     removeButton.addEventListener('click', function(event) {
@@ -86,7 +99,7 @@ const Todo = {
       this.addUpArrow(item)
       this.addDownArrow(previousItem)
     }
-    this.saveToLocaleStorage()
+    this.saveToLocaleStorage(item)
   },
 
   removeItem: function(item) {
@@ -106,11 +119,11 @@ const Todo = {
     return newButton
   },
 
-  setItemState: function(item, state) {
+  setItemState: function(item, storedState) {
     // Storing this context for eventListeners
     let self = this
     let itemState = document.createElement('div')
-    let state = state || 'uncomplete' // will populate from localStorage if there is any task already there
+    let state = storedState || 'uncomplete' // will populate from localStorage if there is any task already there
 
     itemState.classList.add(state)
     itemState.addEventListener('click', function(event) {
@@ -240,19 +253,20 @@ const Todo = {
     else if (item.children[0].className === 'complete'){
       this.markAsUncomplete(item)
     }
-    this.saveToLocaleStorage()
   },
 
   markAsComplete: function(item) {
       item.children[0].classList.replace('uncomplete', 'complete')
       this.strikeThroughItem(item)
       this.removeFromRemainingItems()
+      this.saveToLocaleStorage()
   },
 
   markAsUncomplete: function(item) {
       item.children[0].classList.replace('complete', 'uncomplete')
       this.unStrikeItem(item)
       this.addToRemainingItems()
+      this.saveToLocaleStorage()
   },
 
   strikeThroughItem: function(item) {
