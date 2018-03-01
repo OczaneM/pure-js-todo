@@ -70,12 +70,8 @@ const Todo = {
 
     // Finds the index of the item in the list
     findChildIndex: function (item) {
-      console.log(this.list.children)
       for (let i = 0; i < this.list.children.length; i++) {
-        if (this.list.children[i] === item) {
-          console.log(i)
-          return i
-        }
+        if (this.list.children[i] === item) return i
       }
     },
 
