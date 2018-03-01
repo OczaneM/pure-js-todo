@@ -118,7 +118,16 @@ const Todo = {
     },
 
     removeItem: function (item) {
+      let previous = item.previousSibling, next = item.nextSibling
       this.list.removeChild(item)
+      console.log(previous, next)
+      if (this.list.children.length > 1){
+        if (previous && previous.children) this.updateArrows(previous)
+        if (next) this.updateArrows(next)
+      } else {
+        if (previous && previous.children) previous.removeChild(previous.children[3])
+        if (next) next.removeChild(next.children[3])
+      }
       alert('Item removed!') // make alert pop up after removal
       // Only want to remove from remainingItems if itemState is set to uncomplete
       if (item.children[0].className === 'uncomplete') {
@@ -226,8 +235,12 @@ const Todo = {
     // and checks to make sure first and last item on list
     // have correct arrows
     updateArrows: function (item) {
-      if (this.isFirstChild(item)) item.removeChild(item.children[3])
-      else if (this.isLastChild(item)) item.removeChild(item.children[4])
+      if (this.isFirstChild(item)) {
+        if (item.children[3] && item.children[3] === 'up-arrow') item.removeChild(item.children[3])
+      }
+      else if (this.isLastChild(item)) {
+        if (item.children[4]) item.removeChild(item.children[4])
+      }
       else {
         // first if is for rearranging the order of the arrow classes
         // in the very first item added
