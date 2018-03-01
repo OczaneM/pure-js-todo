@@ -61,7 +61,7 @@ const Todo = {
       localStorage.setItem('remainingItems', this.remainingItemsAmount)
     },
 
-    removeFromLocalStorage: function () {
+    removeFromLocalStorage: function() {
       //need to refactor to only clear one item from storage at a time
       localStorage.removeItem('list')
       this.listArray = []
@@ -77,12 +77,12 @@ const Todo = {
 
     // check if item is first on list
     isFirstChild: function (item) {
-      return item === this.list.firstChild ? true : false
+      return item === this.list.firstElementChild ? true : false
     },
 
     // check if item is last on list
     isLastChild: function (item) {
-      return item === this.list.lastChild ? true : false
+      return item === this.list.lastElementChild ? true : false
     },
 
     addItem: function (itemText, storedState) {
@@ -190,7 +190,7 @@ const Todo = {
       let arrow = document.createElement('div')
       arrow.classList.add('up-arrow')
       arrow.addEventListener('click', function (event) {
-        self.moveUp(item, this)
+        self.moveUp(item)
       })
       item.appendChild(arrow)
     },
@@ -200,50 +200,43 @@ const Todo = {
       let arrow = document.createElement('div')
       arrow.classList.add('down-arrow')
       arrow.addEventListener('click', function (event) {
-        self.moveDown(item, this)
+        self.moveDown(item)
       })
       item.appendChild(arrow)
     },
 
     // Moves an item up in the list
-    moveUp: function (item, arrow) {
+    moveUp: function (item) {
       let sibling = item.previousSibling
       this.list.insertBefore(item, sibling)
-      this.updateArrows(item, arrow)
-      this.updateArrows(sibling, arrow)
+      this.updateArrows(item)
+      this.updateArrows(sibling)
     },
 
     // Moves an item down in the list
-    moveDown: function (item, arrow) {
-      let itemIndex = this.findChildIndex(item)
-      let sibling = this.list.children[itemIndex + 1].nextSibling
+    moveDown: function (item) {
+      let sibling = item
+      item = sibling.nextSibling
       this.list.insertBefore(item, sibling)
-      this.updateArrows(item, arrow)
-      this.updateArrows(sibling, arrow)
+      this.updateArrows(item)
+      this.updateArrows(sibling)
     },
 
     // Updates the arrow classes of item argument
     // and checks to make sure first and last item on list
     // have correct arrows
-    updateArrows: function (item, arrow) {
-      if (this.isFirstChild(item)) {
-        if (arrow.className === 'down-arrow') {
-          if (!item.contains(arrow)) this.addDownArrow(item)
-        } else if (arrow.className === 'up-arow') {
-          if (item.contains(arrow)) console.log("remove arro")
+    updateArrows: function (item) {
+      if (this.isFirstChild(item)) item.removeChild(item.children[3])
+      else if (this.isLastChild(item)) item.removeChild(item.children[4])
+      else {
+        // first if is for rearranging the order of the arrow classes
+        // in the very first item added
+        if (item.children[3].className === 'down-arrow') {
+          item.removeChild(item.children[3])
+          this.addUpArrow(item)
+          this.addDownArrow(item)
         }
-      } else if (this.isLastChild(item)) {
-        if (arrow.className === 'up-arrow') {
-          if (!item.contains(arrow)) item.appendChild(arrow)
-        } else if (arrow.className === 'down-arrow') {
-          if (item.contains(arrow)) {
-            item.removeChild(arrow)
-          }
-        }
-      } else {
-        console.log(item)
-        if (item.children[3].className === 'down-arrow') this.addUpArrow(item)
-        else if (item.children[4] === null) this.addDownArrow(item)
+        else if (item.children[4] === undefined) this.addDownArrow(item)
       }
     },
 
