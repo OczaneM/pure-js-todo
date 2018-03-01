@@ -2,6 +2,7 @@
 
 const Todo = {
   list: document.getElementById('todo-list'),
+  listArray: [],  // local storage list
   toggleAll: document.getElementById('toggle-all'),
   remainingItemsText: document.getElementById('todo-length'),
   remainingItemsAmount: 0,
@@ -16,6 +17,27 @@ const Todo = {
       self.toggleAllItems()
     } )
     this.remainingItemsText.innerText = 0 + ' items remaining'
+    console.log(this.listArray)
+    if (localStorage.list){
+      console.log('Populated from list"')
+      this.listArray = JSON.parse(localStorage.list)
+      this.listArray.forEach(element => {
+        this.addItem(element.task, element.state)
+      })
+    } else {
+      //pre-set todo items with instructions
+      this.addItem('Enter a new todo item in the input field.')
+      this.addItem('Click on the trashcan icon to remove a todo.')
+      this.addItem('Click on the checkmark to mark an item as done.')
+    }
+  },
+
+  saveToLocaleStorage: function() {
+    for(let i = 0; i < this.list.children.length; i++){
+      this.listArray[i] = {task: this.list.children[i].children[1].outerText, state: this.list.children[0].children[0].className}
+    }
+    localStorage.setItem('list', JSON.stringify(this.listArray))
+    console.log('STORE: ', this.store)
   },
 
   // Finds the index of the item in the list
@@ -35,7 +57,7 @@ const Todo = {
     return item === this.list.lastChild ? true : false
   },
 
-  addItem: function(itemText) {
+  addItem: function(itemText, state) {
     //storing this context for eventListeners
     let self = this
 
@@ -44,7 +66,7 @@ const Todo = {
 
     let textArea = this.setTextArea(itemText, item)
 
-    let itemState = this.setItemState(item)
+    let itemState = this.setItemState(item, state)
 
     let removeButton = this.addButton('remove')
     removeButton.addEventListener('click', function(event) {
@@ -64,6 +86,7 @@ const Todo = {
       this.addUpArrow(item)
       this.addDownArrow(previousItem)
     }
+    this.saveToLocaleStorage()
   },
 
   removeItem: function(item) {
@@ -73,6 +96,7 @@ const Todo = {
     if(item.children[0].className === 'uncomplete'){
       this.removeFromRemainingItems()
     }
+    this.saveToLocaleStorage()
   },
 
   // Argument must be the type of button to be added in string format
@@ -82,13 +106,13 @@ const Todo = {
     return newButton
   },
 
-  setItemState: function(item) {
+  setItemState: function(item, state) {
     // Storing this context for eventListeners
     let self = this
     let itemState = document.createElement('div')
+    let state = state || 'uncomplete' // will populate from localStorage if there is any task already there
 
-    // ItemState defaults as uncomplete
-    itemState.classList.add('uncomplete')
+    itemState.classList.add(state)
     itemState.addEventListener('click', function(event) {
       self.checkItemStatus(item)
     })
@@ -130,6 +154,7 @@ const Todo = {
   editItem: function(itemText, item) {
     let editedTextArea = this.setTextArea(itemText, item)
     item.replaceChild(editedTextArea, item.children[1])
+    this.saveToLocaleStorage()
   },
 
   addUpArrow: function(item) {
@@ -215,6 +240,7 @@ const Todo = {
     else if (item.children[0].className === 'complete'){
       this.markAsUncomplete(item)
     }
+    this.saveToLocaleStorage()
   },
 
   markAsComplete: function(item) {
@@ -245,6 +271,7 @@ const Todo = {
     else {
       this.toggleAllAsUncomplete()
     }
+    this.saveToLocaleStorage()
   },
 
   toggleAllAsComplete: function() {

@@ -2,7 +2,7 @@
 
 const todo = Object.create(Todo)
 todo.init()
-console.log(todo)
+
 
 //Add a task to the list after enter key is pressed
 //Only when there is text in the field
@@ -15,4 +15,9 @@ newItem.addEventListener('keyup', function(event) {
   }
   else if (!this.value) alert('Field cannot be empty!')
 })
+
+
+
+
+
 
