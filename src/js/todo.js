@@ -26,7 +26,7 @@ const Todo = {
         //pre-set todo items with instructions
         this.addItem('Enter a new todo item in the input field.')
         this.addItem('Click on the trashcan icon to remove a todo.')
-        this.addItem('Click on the checkmark to mark an item as done.')
+        this.addItem('Click on the checkmark box to mark an item as done.')
       }
     },
 
