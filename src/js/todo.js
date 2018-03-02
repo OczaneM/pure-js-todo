@@ -255,6 +255,7 @@ const Todo = {
         }
         else if (item.children[4] === undefined) this.addDownArrow(item)
       }
+      this.saveToLocaleStorage()
     },
 
     addToRemainingItems: function () {
