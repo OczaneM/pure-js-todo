@@ -12,6 +12,7 @@ body {
 ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 
@@ -25,18 +26,17 @@ ul {
   background-color: black;
   overflow: auto;
   width: 100%;
+  padding: 15px 10px 15px 10px;
 }
 
-.nav-header h3 {
+
+.nav-header h3, li, li a {
   float: left;
   color: white;
-  width: 2em;
+  width: 5em;
   height: 1em;
-}
-
-.nav-header li {
-  float: left;
-  color: white;
+  margin: 0;
+  text-align: center;
 }
 
 .clear {
