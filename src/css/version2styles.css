@@ -1,6 +1,6 @@
 /** GLOBAL STYLES **/
 
-header, section, nav, footer, input, ul, li {
+header, section, nav, footer {
   display: block;
 }
 
@@ -15,6 +15,9 @@ ul {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+}
 
 /** END GLOBAL **/
 
@@ -22,27 +25,65 @@ ul {
   max-width: 100vw;
 }
 
+.active {
+  background-color: #6cb6ff;
+}
+
 .nav-header {
   background-color: black;
   overflow: auto;
   width: 100%;
-  padding: 15px 10px 15px 10px;
+  padding: 0 10px 0 10px;
 }
 
 
-.nav-header h3, li, li a {
+.nav-header h3, li {
   float: left;
   color: white;
-  width: 5em;
-  height: 1em;
+  width: 5.2em;
   margin: 0;
+  height: 100%;
+  padding-top: 15px;
   text-align: center;
 }
 
-.clear {
-  clear: right;
+.nav-header li {
+  margin: 0;
+  height: 2.2em;
 }
 
+.nav-header a {
+  color: white;
+}
+
+.create-header {
+  width: 100%;
+  height: 35px;
+  padding: 5px 10px 5px 10px;
+}
+
+.toggle-all-checkbox-container {
+  opacity: .7;
+  border: 1px solid grey;
+}
+
+#toggle-all-checkbox-container {
+  opacity: 80;
+  background-color: #9bcefc;
+  border: 1px solid #84aed3;
+  float: left;
+  width: 2em;
+  height: 2em;
+}
+
+.checkbox {
+  clear: none;
+  margin: .5em;
+  cursor: pointer;
+  border: 1px solid gray;
+  width: 1.5em;
+  height: 1.5em;
+}
 
 
 

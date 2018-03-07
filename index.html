@@ -15,15 +15,17 @@
         <h3>TODO</h3>
         <nav>
           <ul>
-            <li class="active bg-blue"><a href="">create</a></li>
+            <li class="active"><a href="">create</a></li>
             <li class="tab-control"><a href="">search</a></li>
             <li class="tab-control"><a href="">configure</a></li>
           </ul>
         </nav>
       </header>
-      <section id="create-tab" class="tab-panel active bg-blue">
-        <header>
-          <div id="toggle-all-checkbox" class="checkbox uncomplete"></div>
+      <section id="create-tab" class="tab-panel active">
+        <header class="create-header">
+          <div id="toggle-all-checkbox-container">
+            <input id="toggle-all" type="checkbox" class="checkbox">
+          </div>
           <input type="text" placeholder="Type new task and hit enter..." id="task-input-field">
         </header>
         <ul id="todo-list">
