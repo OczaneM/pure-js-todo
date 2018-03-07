@@ -7,6 +7,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="src/css/version2styles.css" type="text/css">
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
   </head>
 
   <body>
@@ -29,7 +30,16 @@
           <input type="text" placeholder="Type new task and hit enter..." id="task-input-field">
         </header>
         <ul id="todo-list">
-          <!-- Todo List -->
+          <li class="task-holder">
+              <input type="checkbox" class="checkbox">
+              <p>Second ever task.</p>
+              <i class="fas fa-trash-alt"></i>
+          </li>
+          <li class="task-holder">
+            <input type="checkbox" class="checkbox">
+            <p>First ever task.</p>
+            <a href=""><i class="fas fa-trash-alt"></i></a>
+          </li>
         </ul>
       </section>
       <section id="search-tab" class="tab-panel"></section>

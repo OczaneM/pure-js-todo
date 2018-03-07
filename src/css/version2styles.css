@@ -85,11 +85,39 @@ section {
 }
 
 .checkbox {
+  float: left;
   clear: none;
   margin: .5em;
   cursor: pointer;
   width: 1.5em;
   height: 1.5em;
+}
+
+.task-holder {
+  height: 50px;
+  border-bottom: 1px solid rgb(209, 209, 209);
+  width: 100vw;
+  padding: 0;
+}
+
+.task-holder p {
+  float: left;
+  margin: 1em;
+  height: 1em;
+  color: dimgray
+
+}
+
+.task-holder .checkbox {
+  margin: 1em;
+  margin-right: 0;
+}
+
+.fas {
+  color: dimgrey;
+  position: absolute;
+  right: 20px;
+  margin-top: 1.0em;
 }
 
 footer {
