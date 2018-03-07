@@ -19,6 +19,10 @@ a {
   text-decoration: none;
 }
 
+section {
+  width: 100vw;
+}
+
 /** END GLOBAL **/
 
 .wrapper {
@@ -32,7 +36,6 @@ a {
 .nav-header {
   background-color: black;
   overflow: auto;
-  width: 100%;
   padding: 0 10px 0 10px;
 }
 
@@ -42,7 +45,6 @@ a {
   color: white;
   width: 5.2em;
   margin: 0;
-  height: 100%;
   padding-top: 15px;
   text-align: center;
 }
@@ -57,30 +59,30 @@ a {
 }
 
 .create-header {
-  width: 100%;
-  height: 35px;
-  padding: 5px 10px 5px 10px;
+  height: 50px;
+}
+
+#task-input-field {
+  width: 80%;
+  height: 2em;
+  margin-left: 10px;
+  padding-left: 10px;
 }
 
 .toggle-all-checkbox-container {
-  opacity: .7;
-  border: 1px solid grey;
-}
-
-#toggle-all-checkbox-container {
-  opacity: 80;
-  background-color: #9bcefc;
-  border: 1px solid #84aed3;
+  background-color: #a6d3fa;
+  border-right: 1px solid #6497c0;
+  border-bottom: 1px solid #6497c0;
   float: left;
-  width: 2em;
+  width: 2.5em;
   height: 2em;
+  margin: 10px 0 10px 10px;
 }
 
 .checkbox {
   clear: none;
   margin: .5em;
   cursor: pointer;
-  border: 1px solid gray;
   width: 1.5em;
   height: 1.5em;
 }
