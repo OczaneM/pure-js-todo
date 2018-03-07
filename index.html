@@ -6,31 +6,40 @@
     <title>Pure JS Todo App</title>
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="src/css/styles.css" type="text/css">
+    <link rel="stylesheet" href="src/css/version2styles.css" type="text/css">
   </head>
 
   <body>
-    <div class="wrapper">
+    <div id="wrapper">
       <header>
-        <div class="box-container box-gradient">
-          <label>Todo</label>
-          <input type="text" placeholder="Enter todo item" id="add-item">
-        </div>
+        <h3>TODO</h3>
+        <nav>
+          <ul>
+            <li class="active bg-blue"><a href="">create</a></li>
+            <li class="tab-control"><a href="">search</a>></li>
+            <li class="tab-control"><a href="">configure</a>></li>
+          </ul>
+        </nav>
       </header>
-      <main>
+      <section id="create-tab" class="tab-panel active bg-blue">
+        <header>
+          <div id="toggle-all-checkbox" class="checkbox uncomplete"></div>
+          <input type="text" placeholder="Type new task and hit enter..." id="task-input-field">
+        </header>
         <ul id="todo-list">
-
+          <!-- Todo List -->
         </ul>
-      </main>
+      </section>
+      <section id="search-tab" class="tab-panel"></section>
+      <section id="configure-tab" class="tab-panel"></section>
       <footer>
-        <div class="box-container box-gradient">
-          <div id="toggle-all" class="uncomplete"></div>
-          <div id="todo-length" class="unchecked-amount-text"></div>
+        <div id="total-uncomplete-items">
         </div>
       </footer>
-    </div>
 
     <!-- Javascript Files -->
+    <script src="srr/js/configure.js"></script>
+    <script scr="src/js/store.js"></script>
     <script src="src/js/todo.js"></script>
     <script src="src/js/main.js"></script>
   </body>
