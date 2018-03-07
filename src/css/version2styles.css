@@ -63,10 +63,12 @@ section {
 }
 
 #task-input-field {
-  width: 80%;
-  height: 2em;
-  margin-left: 10px;
+  width: 75%;
+  height: 2.1em;
+  margin-left: 15px;
+  margin-top: 9px;
   padding-left: 10px;
+  border: 0;
 }
 
 .toggle-all-checkbox-container {
@@ -76,7 +78,7 @@ section {
   float: left;
   width: 2.5em;
   height: 2em;
-  margin: 10px 0 10px 10px;
+  margin: 9px 0 9px 9px;
 }
 
 .checkbox {
