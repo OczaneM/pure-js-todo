@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pure JS Todo App</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="src/css/styles.css" type="text/css">
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <header>
+        <div class="box-container box-gradient">
+          <label>Todo</label>
+          <input type="text" placeholder="Enter todo item" id="add-item">
+        </div>
+      </header>
+      <main>
+        <ul id="todo-list">
+
+        </ul>
+      </main>
+      <footer>
+        <div class="box-container box-gradient">
+          <div id="toggle-all" class="uncomplete"></div>
+          <div id="todo-length" class="unchecked-amount-text"></div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Javascript Files -->
+    <script src="src/js/todo.js"></script>
+    <script src="src/js/main.js"></script>
+  </body>
+</html>
