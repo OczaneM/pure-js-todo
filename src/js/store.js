@@ -55,14 +55,10 @@ function setList (data) {
 
 function addTaskToList (task) {
   if (!state.list.find(elem => elem.id === task.id)) state.list.push(task)
-  let newTaskContainer = createDomElem('li')
-  let newTask = createDomElem('p', task.value)
-  let checkbox = createDomElem('input')
-  let deleteButton = createDomElem('i')
-
-  setAttributes(newTaskContainer, ['class'], ['task-holder'])
-  setAttributes(checkbox, ['type', 'class'], ['checkbox', 'checkbox'])
-  setAttributes(deleteButton, ['class', 'class'], ['fas', 'fa-trash-alt'])
+  let newTaskContainer = createDomElem('li', {className: 'task-holder'})
+  let newTask = createDomElem('p', {}, task.value)
+  let checkbox = createDomElem('input', {type: 'checkbox', className: 'checkbox'})
+  let deleteButton = createDomElem('i', {className: 'fas fa-trash-alt'})
 
   newTaskContainer.appendChild(checkbox)
   newTaskContainer.appendChild(newTask)
@@ -86,25 +82,19 @@ function resetItemCounter () {
 
 //*** DOM MANIPULATION */
 
-function createDomElem (elemType, text) {
+function createDomElem (elemType, properties, text) {
   let newElem = document.createElement(elemType)
   if (text) {
     let newTextNode = document.createTextNode(text)
     newElem.appendChild(newTextNode)
   }
+  Object.keys(properties).forEach( prop => {
+    newElem[prop] = properties[prop]
+  })
   return newElem
 }
 
 function removeDomElem (elemIndex) {
   let element = taskContainers[elemIndex]
   listContainer.removeChild(element)
-}
-
-function setAttributes (elem, attTypes, attValues) {
-  for (let i = 0; i < attTypes.length; i++) {
-    if (attTypes[i] === 'class'){ // can have multiple classes
-      elem.classList.add(attValues[i])
-    }
-    else elem.setAttribute(attTypes[i], attValues[i])
-  }
 }
