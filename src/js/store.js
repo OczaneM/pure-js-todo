@@ -43,15 +43,18 @@ const getListData = () => {
 
 const storeListData = () => {localStorage.todoState = JSON.stringify(state)}
 
-//*** LIST FUNCS */
-const setList = (data) => {
-  state.list = data.list
-  state.idCounter = data.idCounter
-  state.itemCounter = data.itemCounter
+//*** STATE FUNCS */
+const setList = ({list, idCounter, itemCounter}) => {
+  state.list = list
+  state.idCounter = idCounter
+  state.itemCounter = itemCounter
 }
+const setItemCounter = (num) => {state.itemCounter = num}
+const setIdCounter = (num) => {state.idCounter = num}
 
+//*** LIST FUNCS */
 const addTaskToList = (task) => {
-  if (!state.list.find(elem => elem.id === task.id)) state.list.push(task)
+  if (!state.list.find(elem => elem.id === task.id)) state.list = [...state.list, task]
 
   let newTaskContainer = createDomElem('li', {className: 'task-holder'})
   let newTask = createDomElem('p', {}, task.value)
@@ -60,10 +63,7 @@ const addTaskToList = (task) => {
 
   appendChildHelper(newTaskContainer, checkbox, newTask, deleteButton)
 
-  if (NEW_TASKS_AT_TOP === false){
-    listContainer.insertBefore(newTaskContainer, taskContainers.firstChild)
-  }
-  else listContainer.appendChild(newTaskContainer)
+  listContainer.appendChild(newTaskContainer)
 }
 
 const appendChildHelper = (parent, ...children) =>
@@ -78,9 +78,6 @@ const removeTaskFromList = (task) => {
   removeDomElem(index)
   state.list.splice(index, 1)
 }
-
-const resetItemCounter = () => {state.itemCounter = 0}
-
 
 //*** DOM MANIPULATION */
 

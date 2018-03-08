@@ -4,6 +4,7 @@
 window.onload = function () {
   if (localStorage.todoState) {
     getListData()
+    // Populate List
     for (let i = 0; i < state.list.length; i++){
       if (state.list[i].complete === false) state.itemCounter++
       addTaskToList(state.list[i])
