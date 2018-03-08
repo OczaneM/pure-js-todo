@@ -1,14 +1,14 @@
 'use strict'
 
 const Todo = {
-  createTask: function () {
+  createTask: function (taskVal) {
     let task = {
-      id: idCounter,
-      value: taskInput,
+      id: state.idCounter,
+      value: taskVal,
       complete: false
     }
-    idCounter++
-    itemCounter++
-    addToList(task)
+    state.idCounter++
+    state.itemCounter++
+    addTaskToList(task)
   }
 }

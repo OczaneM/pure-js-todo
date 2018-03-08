@@ -12,7 +12,7 @@ const SHOW_COMPLETE_ITEMS = true
 //const COMPLETE_ITEM_COLOR = dimgray
 //const UNCOMPLETE_ITEM_COLOR = lightgrey
 const COLOR_ODD_NUMBER_TASK_HOLDERS = false
-const NEW_TASKS_AT_TOP = true
+const NEW_TASKS_AT_TOP = false
 const APP_MAX_WIDTH = 100 // percentage
 const APP_MAX_HEIGHT = 100 // percentage
 const APP_MIN_WIDTH = 375 // pixels
@@ -37,42 +37,37 @@ var taskContainers = document.querySelectorAll(ALL_TASKS)
 
 //*** DATA STORAGE FUNCS */
 function getListData () {
-  var data = JSON.parse(localStorage.todoList)
+  var data = JSON.parse(localStorage.todoState)
   setList(data)
 }
 
 function storeListData () {
-  localStorage.todoList = JSON.stringify(state.list)
+  console.log(state.list)
+  localStorage.todoState = JSON.stringify(state)
 }
 
 //*** LIST FUNCS */
-function setList (listArray) {
-  state.list = listArray
+function setList (data) {
+  state.list = data.list
+  state.idCounter = data.idCounter
+  state.itemCounter = data.itemCounter
 }
 
 function addTaskToList (task) {
-  if (!state.list.find(task)) state.list.push(task)
+  if (!state.list.find(elem => elem.id === task.id)) state.list.push(task)
   let newTaskContainer = createDomElem('li')
   let newTask = createDomElem('p', task.value)
   let checkbox = createDomElem('input')
   let deleteButton = createDomElem('i')
 
   setAttributes(newTaskContainer, ['class'], ['task-holder'])
-  setAttributes(checkbox, ['type', 'class', 'checked'], ['checkbox', 'checbox', false])
+  setAttributes(checkbox, ['type', 'class'], ['checkbox', 'checkbox'])
   setAttributes(deleteButton, ['class', 'class'], ['fas', 'fa-trash-alt'])
-
-  // newTaskContainer.className = 'task-holder'
-  // checkbox.type = 'checkbox'
-  // checkbox.className = 'checkbox'
-  // checkbox.checked = false
-  // deleteButton.classList.add('fas')
-  // deleteButton.classList.add('fa-trash-alt')
 
   newTaskContainer.appendChild(checkbox)
   newTaskContainer.appendChild(newTask)
   newTaskContainer.appendChild(deleteButton)
-
-  if (NEW_TASKS_AT_TOP){
+  if (NEW_TASKS_AT_TOP === false){
     listContainer.insertBefore(newTaskContainer, taskContainers.firstChild)
   }
   else listContainer.appendChild(newTaskContainer)
@@ -107,6 +102,9 @@ function removeDomElem (elemIndex) {
 
 function setAttributes (elem, attTypes, attValues) {
   for (let i = 0; i < attTypes.length; i++) {
-    elem.setAttribute(attTypes[i], attValues[i])
+    if (attTypes[i] === 'class'){ // can have multiple classes
+      elem.classList.add(attValues[i])
+    }
+    else elem.setAttribute(attTypes[i], attValues[i])
   }
 }
