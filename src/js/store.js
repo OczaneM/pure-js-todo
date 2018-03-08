@@ -27,7 +27,45 @@ const LIST_CONTAINER = 'todo-list'
 const ALL_TASKS = 'li.task-holder'
 
 //*** QUERIES */
-var newTask = document.getElementById(TASK_INPUT)
+var taskInput = document.getElementById(TASK_INPUT)
 var listContainer = document.getElementById(LIST_CONTAINER)
 var taskContainers = document.querySelectorAll(ALL_TASKS)
 
+//*** DATA STORAGE FUNCS */
+function getListData () {
+  var data = JSON.parse(localStorage.todoList)
+  setList(data)
+}
+
+function storeListData () {
+  localStorage.todoList = JSON.stringify(state.list)
+}
+
+//*** STATE FUNCS */
+function setList (listArray) {
+  state.list = listArray
+}
+
+function addToList (task) {
+  state.list.push(task)
+  let newTaskHolder = createAnElem('li')
+  let newTask = createAnElem('p', task.value)
+  newLi.appendChild(newTask)
+  listContainer.appendChild(newTaskHolder)
+}
+
+function removeFromList (task) {
+  let index = state.list.indexOf(task)
+  let element = taskContainers[index]
+  listContainer.removeChild(element)
+  state.list.splice(index, 1)
+}
+
+//*** DOM MANIPULATION */
+
+function createAnElem (elemType, text||'') {
+  let newElem = document.createElement(elemType)
+  let newTextNode = document.createTextNode(text)
+  newElem.appendChild(newTextNode)
+  return newElem
+}
