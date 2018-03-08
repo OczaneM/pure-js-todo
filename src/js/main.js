@@ -1,7 +1,5 @@
 'use strict'
 
-console.log(allTasks)
-console.log(newTask)
 // const todo = Object.create(Todo)
 // todo.init()
 
@@ -18,7 +16,11 @@ console.log(newTask)
 //   else if (!this.value) alert('Field cannot be empty!')
 // })
 
-
+// Check localStorage to populate current session list
+window.onload = function () {
+  if (localStorage.todoList) getListData()
+  else storeListData()
+}
 
 
 
