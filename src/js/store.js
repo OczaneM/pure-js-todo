@@ -57,12 +57,16 @@ function addTaskToList (task) {
   let checkbox = createDomElem('input')
   let deleteButton = createDomElem('i')
 
-  newTaskContainer.className = 'task-holder'
-  checkbox.type = 'checkbox'
-  checkbox.className = 'checkbox'
-  checkbox.checked = false
-  deleteButton.classList.add('fas')
-  deleteButton.classList.add('fa-trash-alt')
+  setAttributes(newTaskContainer, ['class'], ['task-holder'])
+  setAttributes(checkbox, ['type', 'class', 'checked'], ['checkbox', 'checbox', false])
+  setAttributes(deleteButton, ['class', 'class'], ['fas', 'fa-trash-alt'])
+
+  // newTaskContainer.className = 'task-holder'
+  // checkbox.type = 'checkbox'
+  // checkbox.className = 'checkbox'
+  // checkbox.checked = false
+  // deleteButton.classList.add('fas')
+  // deleteButton.classList.add('fa-trash-alt')
 
   newTaskContainer.appendChild(checkbox)
   newTaskContainer.appendChild(newTask)
@@ -75,7 +79,8 @@ function addTaskToList (task) {
 }
 
 function removeTaskFromList (task) {
-  removeDomElem(state.list.indexOf(task))
+  let index = state.list.indexOf(task)
+  removeDomElem(index)
   state.list.splice(index, 1)
 }
 
@@ -100,4 +105,8 @@ function removeDomElem (elemIndex) {
   listContainer.removeChild(element)
 }
 
-function setAttibutes (...attributes)
+function setAttributes (elem, attTypes, attValues) {
+  for (let i = 0; i < attTypes.length; i++) {
+    elem.setAttribute(attTypes[i], attValues[i])
+  }
+}
