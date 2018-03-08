@@ -31,29 +31,26 @@ const LIST_CONTAINER = 'todo-list'
 const ALL_TASKS = 'li.task-holder'
 
 //*** QUERIES */
-var taskInput = document.getElementById(TASK_INPUT)
-var listContainer = document.getElementById(LIST_CONTAINER)
-var taskContainers = document.querySelectorAll(ALL_TASKS)
+const taskInput = document.getElementById(TASK_INPUT)
+const listContainer = document.getElementById(LIST_CONTAINER)
+const taskContainers = document.querySelectorAll(ALL_TASKS)
 
 //*** DATA STORAGE FUNCS */
-function getListData () {
-  var data = JSON.parse(localStorage.todoState)
+const getListData = () => {
+  const data = JSON.parse(localStorage.todoState)
   setList(data)
 }
 
-function storeListData () {
-  console.log(state.list)
-  localStorage.todoState = JSON.stringify(state)
-}
+const storeListData = () => {localStorage.todoState = JSON.stringify(state)}
 
 //*** LIST FUNCS */
-function setList (data) {
+const setList = (data) => {
   state.list = data.list
   state.idCounter = data.idCounter
   state.itemCounter = data.itemCounter
 }
 
-function addTaskToList (task) {
+const addTaskToList = (task) => {
   if (!state.list.find(elem => elem.id === task.id)) state.list.push(task)
 
   let newTaskContainer = createDomElem('li', {className: 'task-holder'})
@@ -69,26 +66,25 @@ function addTaskToList (task) {
   else listContainer.appendChild(newTaskContainer)
 }
 
-function appendChildHelper (parent, ...children) {
+const appendChildHelper = (parent, ...children) =>
+{
   for (let i = 0; i < children.length; i++){
     parent.appendChild(children[i])
   }
 }
 
-function removeTaskFromList (task) {
+const removeTaskFromList = (task) => {
   let index = state.list.indexOf(task)
   removeDomElem(index)
   state.list.splice(index, 1)
 }
 
-function resetItemCounter () {
-  state.itemCounter = 0
-}
+const resetItemCounter = () => {state.itemCounter = 0}
 
 
 //*** DOM MANIPULATION */
 
-function createDomElem (elemType, properties, text) {
+const createDomElem = (elemType, properties, text) => {
   let newElem = document.createElement(elemType)
   if (text) {
     let newTextNode = document.createTextNode(text)
@@ -100,7 +96,7 @@ function createDomElem (elemType, properties, text) {
   return newElem
 }
 
-function removeDomElem (elemIndex) {
+const removeDomElem = (elemIndex) => {
   let element = taskContainers[elemIndex]
   listContainer.removeChild(element)
 }
