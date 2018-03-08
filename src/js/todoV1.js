@@ -1,5 +1,6 @@
 'use strict';
 
+
 const Todo = {
     list: document.getElementById('todo-list'),
     listArray: [], // local storage list
@@ -332,3 +333,4 @@ const Todo = {
 
 
 }
+
