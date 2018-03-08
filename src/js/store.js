@@ -55,18 +55,24 @@ function setList (data) {
 
 function addTaskToList (task) {
   if (!state.list.find(elem => elem.id === task.id)) state.list.push(task)
+
   let newTaskContainer = createDomElem('li', {className: 'task-holder'})
   let newTask = createDomElem('p', {}, task.value)
   let checkbox = createDomElem('input', {type: 'checkbox', className: 'checkbox'})
   let deleteButton = createDomElem('i', {className: 'fas fa-trash-alt'})
 
-  newTaskContainer.appendChild(checkbox)
-  newTaskContainer.appendChild(newTask)
-  newTaskContainer.appendChild(deleteButton)
+  appendChildHelper(newTaskContainer, checkbox, newTask, deleteButton)
+
   if (NEW_TASKS_AT_TOP === false){
     listContainer.insertBefore(newTaskContainer, taskContainers.firstChild)
   }
   else listContainer.appendChild(newTaskContainer)
+}
+
+function appendChildHelper (parent, ...children) {
+  for (let i = 0; i < children.length; i++){
+    parent.appendChild(children[i])
+  }
 }
 
 function removeTaskFromList (task) {
