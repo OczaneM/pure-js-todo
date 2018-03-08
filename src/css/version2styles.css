@@ -118,6 +118,7 @@ section {
   position: absolute;
   right: 20px;
   margin-top: 1.0em;
+  cursor: pointer;
 }
 
 footer {
