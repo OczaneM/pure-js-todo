@@ -18,8 +18,14 @@
 
 // Check localStorage to populate current session list
 window.onload = function () {
-  if (localStorage.todoList) getListData()
-  else storeListData()
+  if (localStorage.todoList) {
+    getListData()
+    for (let i = 0; i < state.list.length; i++){
+      if (state.list[i].complete === false) state.itemCounter++
+      addTaskToList(task)
+    }
+  }
+  else storeListData() // stores newly generated list on localStorage
 }
 
 

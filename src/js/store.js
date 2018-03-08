@@ -22,7 +22,8 @@ const APP_MIN_HEIGHT = 400 // pixels
 //*** STATE */
 const state = {
   list: [],
-  itemCounter: 0
+  itemCounter: 0,
+  idCounter: 0
 }
 
 //*** SELECTORS */
@@ -50,8 +51,8 @@ function setList (listArray) {
   state.list = listArray
 }
 
-function addToList (task) {
-  state.list.push(task)
+function addTaskToList (task) {
+  if (!state.list.find(task)) state.list.push(task)
   let newTaskHolder = createDomElem('li')
   let newTask = createDomElem('p', task.value)
   newLi.appendChild(newTask)
@@ -62,6 +63,7 @@ function removeFromList (task) {
   removeDomElem(state.list.indexOf(task))
   state.list.splice(index, 1)
 }
+
 
 //*** DOM MANIPULATION */
 
