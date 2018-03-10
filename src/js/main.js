@@ -1,5 +1,6 @@
 'use strict'
-
+const create = Object.create(Create)
+const nav = Object.create(Nav)
 // Check localStorage to populate current session list
 window.onload = function () {
   if (localStorage.todoState) {
@@ -9,6 +10,26 @@ window.onload = function () {
     create.render()
   }
   else storeListData() // stores newly generated list on localStorage
+}
+
+const Main = {
+  render: function () {
+    nav.render()
+    switch (VIEW) {
+      case 'createTab':
+          create.render()
+          break
+      case 'searchTab':
+          //search.render()
+          break
+      case 'configure':
+          //configure.render()
+          break
+      default:
+          break
+    }
+    create.render()
+  }
 }
 
 //Add a task to the list after enter key is pressed
