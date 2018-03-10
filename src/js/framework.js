@@ -66,11 +66,12 @@ const decrementItemCount = () => {
 }
 
 const refreshItemCount = () => {
-  console.log('yep')
+  refreshQueries()
   state.itemCounter = 0
   state.list.forEach( task => {
-    if (task.complete === 'true') state.itemCounter++
+    if (task.complete === false) state.itemCounter++
   })
+  if (itemCounter) itemCounter.innerText = state.itemCounter + ' items left'
 }
 
 //*** DATA STORAGE FUNCS */

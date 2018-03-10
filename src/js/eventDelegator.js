@@ -15,6 +15,7 @@ const EventDelegator = {
           let previousItem = item.previousSibling
           let task = state.list.find(elem => elem.value === previousItem.innerText)
           removeTaskFromList(task)
+          refreshItemCount()
 
         }
         else if (event.target && event.target.nodeName === 'LI') {
