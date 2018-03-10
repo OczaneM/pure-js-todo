@@ -29,14 +29,17 @@ const TASK_INPUT = 'task-input-field'
 const LIST_CONTAINER = 'todo-list'
 const ALL_TASKS = 'li.task-holder'
 const APP_HOLDER = '.app'
+const ITEM_COUNTER = 'total-uncomplete-items'
 
 //*** QUERIES */
 const app = document.querySelector(APP_HOLDER)
+var itemCounter = document.getElementById(ITEM_COUNTER)
 var taskInput = document.getElementById(TASK_INPUT)
 var listContainer = document.getElementById(LIST_CONTAINER)
 var taskContainers = document.querySelectorAll(ALL_TASKS)
 
 const refreshQueries = () => {
+  itemCounter = document.getElementById(ITEM_COUNTER)
   taskInput = document.getElementById(TASK_INPUT)
   listContainer = document.getElementById(LIST_CONTAINER)
   taskContainers = document.querySelectorAll(ALL_TASKS)
@@ -71,6 +74,12 @@ const removeTaskFromList = (task) => {
 }
 
 const getState = () => state
+
+const incrementItemCount = () => {
+  refreshQueries()
+  state.itemCounter++
+  itemCounter.innerText = state.itemCounter + ' items left'
+}
 
 //*** DOM MANIPULATION */
 const createDomElem = (elemType, properties, text, ...children) => {

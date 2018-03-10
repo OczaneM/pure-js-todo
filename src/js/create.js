@@ -46,7 +46,7 @@ const Create = {
       complete: false
     }
     state.idCounter++
-    state.itemCounter++
+    incrementItemCount()
     addTaskToList(task)
     this.populateList()
   }
