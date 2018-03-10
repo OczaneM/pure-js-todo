@@ -36,10 +36,19 @@ const taskContainers = document.querySelectorAll(ALL_TASKS)
 //*** DATA STORAGE FUNCS */
 const getListData = () => {
   const data = JSON.parse(localStorage.todoState)
-  setList(data)
+  setState(data)
 }
 
 const storeListData = () => {localStorage.todoState = JSON.stringify(state)}
+
+const addTaskToList = (task) => {
+  state.list = [...state.list, task]
+}
+
+const removeTaskFromList = (task) => {
+  let index = state.list.indexOf(task)
+  state.list.splice(index, 1)
+}
 
 //*** STATE FUNCTS */
 const setState = (newState) => {
