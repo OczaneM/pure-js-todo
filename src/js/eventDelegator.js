@@ -20,8 +20,14 @@ const EventDelegator = {
         }
         else if (event.target && event.target.nodeName === 'INPUT') {
           let item = event.target
-          if (item.id === 'toggle-all'){
-            // check all boxes
+          if (item.id && item.id === 'toggle-all'){
+            state.list.forEach( task => {
+              if (item.checked) {
+                task.complete = true
+              }
+              else task.complete = false
+            })
+            Create.populateList()
           }
           else if (item.type === 'checkbox') {
             // match state list task with DOM list task
