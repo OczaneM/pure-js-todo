@@ -15,6 +15,7 @@ const APP_MAX_WIDTH = 100 // percentage
 const APP_MAX_HEIGHT = 100 // percentage
 const APP_MIN_WIDTH = 375 // pixels
 const APP_MIN_HEIGHT = 400 // pixels
+let VIEW = 'createTab'
 
 //*** STATE */
 const state = {
@@ -27,8 +28,10 @@ const state = {
 const TASK_INPUT = 'task-input-field'
 const LIST_CONTAINER = 'todo-list'
 const ALL_TASKS = 'li.task-holder'
+const APP_HOLDER = '.app'
 
 //*** QUERIES */
+const app = document.querySelector(APP_HOLDER)
 const taskInput = document.getElementById(TASK_INPUT)
 const listContainer = document.getElementById(LIST_CONTAINER)
 const taskContainers = document.querySelectorAll(ALL_TASKS)
@@ -97,3 +100,9 @@ const li = (...args) => createDomElem('li', ...args)
 const ul = (...args) => createDomElem('ul', ...args)
 const input = (...args) => createDomElem('input', ...args)
 const i = (...args) => createDomElem('i', ...args)
+const header = (...args) => createDomElem('header', ...args)
+const section = (...arg) => createDomElem('section', ...arg)
+const footer = (...args) => createDomElem('footer', ...args)
+const h3 = (...args) => createDomElem('h3', ...args)
+const nav = (...args) => createDomElem('nav', ...args)
+const a = (...args) => createDomElem('a', ...args)

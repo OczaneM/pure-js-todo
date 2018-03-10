@@ -2,7 +2,8 @@
 
 const Nav = {
   render: function () {
-    header({className: 'nav-header'}, null,
+    app.appendChild(
+      header({className: 'nav-header'}, null,
       h3(null, 'TODO'),
       nav(null, null,
         ul(null, null,
@@ -15,6 +16,7 @@ const Nav = {
           li({className: 'active'}, null,
             a({href: ''}, 'configure')
           )
+         )
         )
       )
     )
