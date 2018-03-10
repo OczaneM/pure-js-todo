@@ -1,4 +1,5 @@
 'use strict'
+const createForm = Object.create(CreateForm)
 
 const Create = {
   render: function () {
@@ -15,8 +16,9 @@ const Create = {
         )
       )
     )
-    refreshList()
+    refreshQueries()
     this.populateList()
+    createForm.inputHandler()
   },
 
   populateList: function () {
@@ -46,7 +48,7 @@ const Create = {
     state.idCounter++
     state.itemCounter++
     addTaskToList(task)
-    this.render()
+    this.populateList()
   },
 
 

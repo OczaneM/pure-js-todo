@@ -30,16 +30,3 @@ const Main = {
     }
   }
 }
-
-//Add a task to the list after enter key is pressed
-//Only when there is text in the field
-// taskInput.addEventListener('keyup', function(event) {
-//   event.preventDefault()
-//   if (!this.value)  alert('Field cannot be empty!')
-//   else if (this.value > MAX_CHARACTER_LIMIT) alert(`Task cannot exceed ${MAX_CHARACTER_LIMIT} characters`)
-//   else if (event.keyCode === 13){
-//     create.createNewTask(this.value)
-//     storeListData()
-//     this.value = ''
-//   }
-// })

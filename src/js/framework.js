@@ -32,11 +32,12 @@ const APP_HOLDER = '.app'
 
 //*** QUERIES */
 const app = document.querySelector(APP_HOLDER)
-const taskInput = document.getElementById(TASK_INPUT)
+var taskInput = document.getElementById(TASK_INPUT)
 var listContainer = document.getElementById(LIST_CONTAINER)
 var taskContainers = document.querySelectorAll(ALL_TASKS)
 
-const refreshList = () => {
+const refreshQueries = () => {
+  taskInput = document.getElementById(TASK_INPUT)
   listContainer = document.getElementById(LIST_CONTAINER)
   taskContainers = document.querySelectorAll(ALL_TASKS)
 }
