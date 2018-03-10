@@ -7,7 +7,7 @@ window.onload = function () {
     getListData()
 
     // Populate List
-    create.render()
+    create.populateList()
   }
   else storeListData() // stores newly generated list on localStorage
 }
@@ -28,7 +28,6 @@ const Main = {
       default:
           break
     }
-    create.render()
   }
 }
 

@@ -15,7 +15,7 @@ const APP_MAX_WIDTH = 100 // percentage
 const APP_MAX_HEIGHT = 100 // percentage
 const APP_MIN_WIDTH = 375 // pixels
 const APP_MIN_HEIGHT = 400 // pixels
-let VIEW = 'createTab'
+var VIEW = 'createTab'
 
 //*** STATE */
 const state = {
@@ -33,8 +33,13 @@ const APP_HOLDER = '.app'
 //*** QUERIES */
 const app = document.querySelector(APP_HOLDER)
 const taskInput = document.getElementById(TASK_INPUT)
-const listContainer = document.getElementById(LIST_CONTAINER)
-const taskContainers = document.querySelectorAll(ALL_TASKS)
+var listContainer = document.getElementById(LIST_CONTAINER)
+var taskContainers = document.querySelectorAll(ALL_TASKS)
+
+const refreshList = () => {
+  listContainer = document.getElementById(LIST_CONTAINER)
+  taskContainers = document.querySelectorAll(ALL_TASKS)
+}
 
 //*** STATE FUNCTS */
 const setState = (newState) => {

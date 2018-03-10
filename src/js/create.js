@@ -8,19 +8,22 @@ const Create = {
           div({className: 'toggle-all-checkbox-container'}, null,
             input({id: 'toggle-all', type: 'checkbox', className: 'checkbox'}, null)
           ),
-          input({id: 'task-input-field', type: 'text', placeholder: 'Type new task and hit enter.'}, null),
-          ul({id: 'todo-list'}, null)
+          input({id: 'task-input-field', type: 'text', placeholder: 'Type new task and hit enter.'}, null)
+        ),
+        ul({id: 'todo-list'}, null
+
         )
       )
     )
-    if (listContainer) this.populateList()
+    refreshList()
+    this.populateList()
   },
 
   populateList: function () {
-    // This fnction will re-render every time it is called.
+    // This function will re-render every time it is called.
     // Therefore need to remove the old children from the
     // parent node.
-    while (listContainer.firstChild) {
+    while (listContainer && listContainer.firstChild) {
         listContainer.removeChild(listContainer.firstChild);
     }
     for (let k = 0; k < state.list.length; k++){
