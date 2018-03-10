@@ -59,12 +59,15 @@ const storeListData = () => {localStorage.todoState = JSON.stringify(state)}
 
 const addTaskToList = (task) => {
   state.list = [...state.list, task]
+  storeListData()
 }
 
 const removeTaskFromList = (task) => {
+  refreshQueries()
   let index = state.list.indexOf(task)
   removeDomElem(listContainer, taskContainers[index])
   state.list.splice(index, 1)
+  storeListData()
 }
 
 const getState = () => state

@@ -2,6 +2,8 @@
 const create = Object.create(Create)
 const navigation = Object.create(Nav)
 const eventDelegator = Object.create(EventDelegator)
+const footerObj = Object.create(Footer)
+
 // Check localStorage to populate current session list
 window.onload = function () {
   if (localStorage.todoState) {
@@ -15,7 +17,7 @@ window.onload = function () {
 
 const Main = {
   render: function () {
-    eventDelegator.delegate()
+    eventDelegator.delegate() // add eventListeners to the DOM
     navigation.render()
     switch (VIEW) {
       case 'createTab':
@@ -30,5 +32,6 @@ const Main = {
       default:
           break
     }
+    footerObj.render()
   }
 }
