@@ -63,6 +63,7 @@ const addTaskToList = (task) => {
 
 const removeTaskFromList = (task) => {
   let index = state.list.indexOf(task)
+  removeDomElem(listContainer, taskContainers[index])
   state.list.splice(index, 1)
 }
 

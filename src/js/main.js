@@ -1,6 +1,7 @@
 'use strict'
 const create = Object.create(Create)
 const navigation = Object.create(Nav)
+const eventDelegator = Object.create(EventDelegator)
 // Check localStorage to populate current session list
 window.onload = function () {
   if (localStorage.todoState) {
@@ -14,6 +15,7 @@ window.onload = function () {
 
 const Main = {
   render: function () {
+    eventDelegator.delegate()
     navigation.render()
     switch (VIEW) {
       case 'createTab':

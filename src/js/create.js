@@ -49,7 +49,5 @@ const Create = {
     state.itemCounter++
     addTaskToList(task)
     this.populateList()
-  },
-
-
+  }
 }
