@@ -33,6 +33,13 @@ const taskInput = document.getElementById(TASK_INPUT)
 const listContainer = document.getElementById(LIST_CONTAINER)
 const taskContainers = document.querySelectorAll(ALL_TASKS)
 
+//*** STATE FUNCTS */
+const setState = (newState) => {
+  Object.keys(newState).forEach(key => {
+    state[key] = newState[key]
+  })
+}
+
 //*** DATA STORAGE FUNCS */
 const getListData = () => {
   const data = JSON.parse(localStorage.todoState)
@@ -48,13 +55,6 @@ const addTaskToList = (task) => {
 const removeTaskFromList = (task) => {
   let index = state.list.indexOf(task)
   state.list.splice(index, 1)
-}
-
-//*** STATE FUNCTS */
-const setState = (newState) => {
-  Object.keys(newState).forEach(key => {
-    state[key] = newState[key]
-  })
 }
 
 const getState = () => state

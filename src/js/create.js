@@ -3,11 +3,17 @@
 const create = {
 
   render: function () {
-    for (let i = 0; i < state.list.length; i++){
+    // This fnction will re-render every time it is called.
+    // Therefore need to remove the old children from the
+    // parent node.
+    while (listContainer.firstChild) {
+        listContainer.removeChild(listContainer.firstChild);
+    }
+    for (let k = 0; k < state.list.length; k++){
       listContainer.appendChild(
         li({className: 'task-holder'}, null,
           input({type: 'checkbox', className: 'checkbox'}, null),
-          p(null, state.list[i].value),
+          p(null, state.list[k].value),
           i({className: 'fas fa-trash-alt'}, null)
         )
       )
@@ -23,6 +29,7 @@ const create = {
     state.idCounter++
     state.itemCounter++
     addTaskToList(task)
+    this.render()
   },
 
 
