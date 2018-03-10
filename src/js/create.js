@@ -5,16 +5,15 @@ const Create = {
     app.appendChild(
       section({id: 'create-tab', className: 'tab-panel'}, null,
         header({className: 'create-header active'}, null,
-          div({clasName: 'toggle-all-checkbox-container'}, null,
-            input({id: 'toggle-all', type: 'checkbox', type: 'checkbox'}, null)
+          div({className: 'toggle-all-checkbox-container'}, null,
+            input({id: 'toggle-all', type: 'checkbox', className: 'checkbox'}, null)
           ),
           input({id: 'task-input-field', type: 'text', placeholder: 'Type new task and hit enter.'}, null),
-          ul({id: 'todo-list'}, null,
-            this.populateList()
-          )
+          ul({id: 'todo-list'}, null)
         )
       )
     )
+    if (listContainer) this.populateList()
   },
 
   populateList: function () {
