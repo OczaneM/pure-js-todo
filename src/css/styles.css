@@ -39,7 +39,7 @@ input, label, .uncomplete, .complete, .text-area, .remove, .unchecked-amount-tex
 }
 
 /* Absolute positioned clases */
-.remove, .up-arrow, .down-arrow, .unchecked-amount-text {
+.up-arrow, .down-arrow {
   position: absolute;
 }
 
@@ -63,22 +63,6 @@ main ul {
   padding: 0;
 }
 
-
-/* Styled as an empty checkbox*/
-.uncomplete {
-  width: 30px;
-  height: 30px;
-  border: 1px solid #999999;
-}
-
-.complete {
-  width: 30px;
-  height: 30px;
-  border: 1px solid #999999;
-  background-image: url('../images/check-mark.svg');
-  background-size: 30px 28px;
-  background-color: transparent;
-}
 
 li input, .text-area {
   width: 60%;
@@ -114,17 +98,6 @@ li input, .text-area {
   background-image: url('../images/down-arrow.svg');
 }
 
-/* Buttons */
-.remove {
-  right: 10px;
-  width: 36px;
-  height: 36px;
-  background-image: url('../images/trash-bin.svg');
-  background-size: 36px 36px;
-  background-color: transparent;
-  border: 0;
-  outline: none;
-}
 
 
 /** FOOTER STYLES **/

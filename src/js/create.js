@@ -32,7 +32,7 @@ const Create = {
       listContainer.appendChild(
         li({className: 'task-holder'}, null,
           input({checked: state.list[k].complete, type: 'checkbox', className: 'checkbox'}, null),
-          p(null, state.list[k].value),
+          p({className: state.list[k].strikethrough}, state.list[k].value),
           i({className: 'fas fa-trash-alt'}, null)
         )
       )
@@ -44,7 +44,8 @@ const Create = {
     let task = {
       id: state.idCounter,
       value: taskVal,
-      complete: false
+      complete: false,
+      strikethrough: 'none'
     }
     state.idCounter++
     refreshItemCount()

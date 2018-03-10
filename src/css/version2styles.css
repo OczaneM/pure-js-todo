@@ -121,6 +121,11 @@ section {
   cursor: pointer;
 }
 
+.strikethrough {
+  text-decoration: line-through;
+  color: #838383;
+}
+
 footer {
   position: fixed;
   background-color: #e9e9e9;

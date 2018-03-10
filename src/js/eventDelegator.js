@@ -20,22 +20,26 @@ const EventDelegator = {
         }
         else if (event.target && event.target.nodeName === 'INPUT') {
           let item = event.target
-          if (item.id && item.id === 'toggle-all'){
+          let nextItem = item.nextSibling
+          if (item.id === 'toggle-all'){
             state.list.forEach( task => {
               if (item.checked) {
                 task.complete = true
+                task.strikethrough = 'strikethrough'
               }
-              else task.complete = false
+              else {
+                task.complete = false
+                task.strikethrough = 'none'
+              }
             })
-            Create.populateList()
           }
           else if (item.type === 'checkbox') {
             // match state list task with DOM list task
-            let nextItem = item.nextSibling
             let task = state.list.find(elem => elem.value === nextItem.innerText)
             task.complete = !task.complete
+            task.complete ? task.strikethrough = 'strikethrough' : task.strikethrough = 'none'
           }
-          refreshItemCount()
+          Create.populateList()
         }
       })
 
