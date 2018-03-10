@@ -31,7 +31,7 @@ const Create = {
     for (let k = 0; k < state.list.length; k++){
       listContainer.appendChild(
         li({className: 'task-holder'}, null,
-          input({type: 'checkbox', className: 'checkbox'}, null),
+          input({checked: state.list[k].complete, type: 'checkbox', className: 'checkbox'}, null),
           p(null, state.list[k].value),
           i({className: 'fas fa-trash-alt'}, null)
         )
@@ -47,7 +47,7 @@ const Create = {
       complete: false
     }
     state.idCounter++
-    //incrementItemCount()
+    refreshItemCount()
     addTaskToList(task)
     this.populateList()
   }

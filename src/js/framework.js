@@ -51,19 +51,6 @@ const setState = (newState) => {
     state[key] = newState[key]
   })
 }
-const getList = () => state.list
-
-const incrementItemCount = () => {
-  refreshQueries()
-  state.itemCounter++
-  itemCounter.innerText = state.itemCounter + ' items left'
-}
-
-const decrementItemCount = () => {
-  refreshQueries()
-  state.itemCounter--
-  itemCounter.innerText = state.itemCounter + ' items left'
-}
 
 const refreshItemCount = () => {
   refreshQueries()
@@ -72,6 +59,7 @@ const refreshItemCount = () => {
     if (task.complete === false) state.itemCounter++
   })
   if (itemCounter) itemCounter.innerText = state.itemCounter + ' items left'
+  storeListData()
 }
 
 //*** DATA STORAGE FUNCS */

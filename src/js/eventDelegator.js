@@ -18,9 +18,18 @@ const EventDelegator = {
           refreshItemCount()
 
         }
-        else if (event.target && event.target.nodeName === 'LI') {
+        else if (event.target && event.target.nodeName === 'INPUT') {
           let item = event.target
-
+          if (item.id === 'toggle-all'){
+            // check all boxes
+          }
+          else if (item.type === 'checkbox') {
+            // match state list task with DOM list task
+            let nextItem = item.nextSibling
+            let task = state.list.find(elem => elem.value === nextItem.innerText)
+            task.complete = !task.complete
+          }
+          refreshItemCount()
         }
       })
 
