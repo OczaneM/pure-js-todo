@@ -5,15 +5,9 @@ const eventDelegator = Object.create(EventDelegator)
 const footerObj = Object.create(Footer)
 
 // Check localStorage to populate current session list
-window.onload = function () {
-  if (localStorage.todoState) {
-    getListData()
+if (localStorage.todoState) getListData()
+else storeListData() // stores newly generated list on localStorage
 
-    // Populate List
-    create.populateList()
-  }
-  else storeListData() // stores newly generated list on localStorage
-}
 
 const Main = {
   render: function () {

@@ -51,6 +51,27 @@ const setState = (newState) => {
     state[key] = newState[key]
   })
 }
+const getList = () => state.list
+
+const incrementItemCount = () => {
+  refreshQueries()
+  state.itemCounter++
+  itemCounter.innerText = state.itemCounter + ' items left'
+}
+
+const decrementItemCount = () => {
+  refreshQueries()
+  state.itemCounter--
+  itemCounter.innerText = state.itemCounter + ' items left'
+}
+
+const refreshItemCount = () => {
+  console.log('yep')
+  state.itemCounter = 0
+  state.list.forEach( task => {
+    if (task.complete === 'true') state.itemCounter++
+  })
+}
 
 //*** DATA STORAGE FUNCS */
 const getListData = () => {
@@ -71,14 +92,6 @@ const removeTaskFromList = (task) => {
   removeDomElem(listContainer, taskContainers[index])
   state.list.splice(index, 1)
   storeListData()
-}
-
-const getState = () => state
-
-const incrementItemCount = () => {
-  refreshQueries()
-  state.itemCounter++
-  itemCounter.innerText = state.itemCounter + ' items left'
 }
 
 //*** DOM MANIPULATION */
