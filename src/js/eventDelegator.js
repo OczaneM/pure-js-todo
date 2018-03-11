@@ -6,7 +6,6 @@ const EventDelegator = {
     document.addEventListener('DOMContentLoaded', function() {
 
       app.addEventListener('click', function(event) {
-        console.log("STATE3: ", state.list)
         refreshQueries()
         if (event.target && event.target.nodeName === 'I') {
           let item = event.target
@@ -14,10 +13,10 @@ const EventDelegator = {
           if (item.className === 'fas fa-trash-alt'){
             self.removeItem(item)
           }
-          else if (item.className === 'fas fa-sort-up') { // up arrow
+          else if (item.className === 'fas fa-caret-up') { // up arrow
             self.moveUp(item.parentNode)
           }
-          else if (item.className === 'fas fa-sort-down') {// down arrow
+          else if (item.className === 'fas fa-caret-down') {// down arrow
             self.moveDown(item.parentNode)
           }
           refreshItemCount()

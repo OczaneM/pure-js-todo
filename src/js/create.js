@@ -33,9 +33,9 @@ const Create = {
         li({className: 'task-holder'}, null,
           input({checked: state.list[k].complete, type: 'checkbox', className: 'checkbox'}, null),
           p({className: state.list[k].strikethrough}, state.list[k].value),
-          i({className: 'fas fa-trash-alt'}, null),
-          i({className: 'fas fa-sort-up'}, null),
-          i({className: 'fas fa-sort-down'}, null)
+          i({className: 'fas fa-caret-up'}, null),
+          i({className: 'fas fa-caret-down'}, null),
+          i({className: 'fas fa-trash-alt'}, null)
         )
       )
     }

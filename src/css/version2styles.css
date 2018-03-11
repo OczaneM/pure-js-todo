@@ -116,21 +116,23 @@ section {
 .fas {
   color: dimgrey;
   position: absolute;
-  right: 20px;
-  margin-top: 1.0em;
   cursor: pointer;
 }
 
-.fa-sort-up, .fa-sort-down {
-  right: 45px;
-  font-size: 22px;
-  width: .5em;
-  height: .5em;
-  margin-top: .5em;
+.fa-trash-alt {
+  margin-top: 1em;
+  right: 20px;
 }
 
-.fa-sort-down {
-  margin-top: .6em;
+.fa-caret-up, .fa-caret-down {
+  margin-top: .3em;
+  right: 45px;
+  font-size: 22px;
+  height: .7em;
+}
+
+.fa-caret-down {
+ margin-top: 1em;
 }
 
 .strikethrough {
