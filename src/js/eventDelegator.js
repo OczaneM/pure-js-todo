@@ -4,7 +4,7 @@ const EventDelegator = {
   delegate: function () {
     let self = this
     document.addEventListener('DOMContentLoaded', function() {
-      app.addEventListener('mouseup', eventsCallBack)
+      app.addEventListener('click', eventsCallBack)
     })
   },
 
@@ -12,7 +12,8 @@ const EventDelegator = {
     let item = event.target
     // trashcan button
     if (item.className === 'fas fa-trash-alt'){
-      this.removeItem(item.parentNode)
+      let result = confirm('Delete this item?')
+      if (result) this.removeItem(item.parentNode)
     }
     else if (item.className === 'fas fa-caret-up') { // up arrow
       this.moveUp(item.parentNode)
@@ -113,9 +114,23 @@ const EventDelegator = {
     task.complete ? task.strikethrough = 'strikethrough' : task.strikethrough = 'none'
   },
 
-  addDoubleClickEvent: function (event) {
+  showEditButtons: function (event) {
     let item = event.target
-    item.removeEventListener('mouseup', eventsCallBack, true)
+    let task = state.list.find(elem => elem.value === item.children[1].innerText)
+    task.edit = 'edit-button show'
+    task.cancel = 'cancel-button show'
+  },
+
+  hideEditButtons: function (item) {
+    let parent = item.parentNode
+    let task = state.list.find(elem => elem.value === parent.children[1].innerText)
+    task.edit = 'edit-button hide'
+    task.cancel = 'cancel-button hide'
+  },
+
+  addEditForm: function (event) {
+    let item = event.target
+    item.removeEventListener('click', eventsCallBack, true)
     console.log(eventsCallBack)
     item.addEventListener('dblclick', function (event) {
       alert('doube clicked!')
@@ -134,7 +149,7 @@ const EventDelegator = {
 function eventsCallBack (event) {
     refreshQueries()
     if (event.target && event.target.nodeName === 'LI') {
-      EventDelegator.addDoubleClickEvent(event)
+      EventDelegator.showEditButtons(event)
     }
     else if (event.target && event.target.nodeName === 'I') {
      EventDelegator.setIEvents(event)
@@ -142,5 +157,11 @@ function eventsCallBack (event) {
     else if (event.target && event.target.nodeName === 'INPUT') {
       EventDelegator.setInputEvents(event)
     }
+    else if (event.target && event.target.nodeName === 'BUTTON') {
+      let item = event.target
+      if (item.className === 'cancel-button show') EventDelegator.hideEditButtons(item)
+    }
     Create.populateList()
 }
+
+

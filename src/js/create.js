@@ -33,8 +33,8 @@ const Create = {
         li({className: 'task-holder'}, null,
           input({checked: state.list[k].complete, type: 'checkbox', className: 'checkbox'}, null),
           p({className: state.list[k].strikethrough}, state.list[k].value),
-          button({className: 'edit-button hide'}, 'edit'),
-          button({className: 'cancel-button hide'}, 'cancel'),
+          button({className: state.list[k].edit}, 'edit'),
+          button({className: state.list[k].cancel}, 'cancel'),
           i({className: 'fas fa-caret-up'}, null),
           i({className: 'fas fa-caret-down'}, null),
           i({className: 'fas fa-trash-alt'}, null)
@@ -50,7 +50,9 @@ const Create = {
       id: state.idCounter,
       value: taskVal,
       complete: false,
-      strikethrough: 'none'
+      strikethrough: 'none',
+      edit: 'edit-button hide',
+      cancel: 'cancel-button hide'
     }
     state.idCounter++
     refreshItemCount()

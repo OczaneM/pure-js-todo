@@ -143,7 +143,7 @@ section {
 .edit-button, .cancel-button {
   font-size: 13px;
   right: 65px;
-  width: 3.5em;
+  width: 4em;
   height: 1.8em;
   background-color: rgb(218, 31, 31);
   color: white;
@@ -152,6 +152,7 @@ section {
   position: absolute;
   margin-top: 1em;
   border: 1px solid rgb(114, 20, 20);
+  cursor: pointer;
 }
 
 .edit-button {
