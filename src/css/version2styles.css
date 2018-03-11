@@ -123,6 +123,7 @@ section {
 
 .fa-sort-up, .fa-sort-down {
   right: 45px;
+  margin: 0;
 }
 
 .strikethrough {

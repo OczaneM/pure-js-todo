@@ -40,6 +40,7 @@ const Create = {
       )
     }
     refreshItemCount()
+    storeListData()
   },
 
   createNewTask: function (taskVal) {
