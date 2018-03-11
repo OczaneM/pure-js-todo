@@ -8,40 +8,66 @@ const EventDelegator = {
       app.addEventListener('click', function(event) {
         refreshQueries()
         if (event.target && event.target.nodeName === 'I') {
-          let item = event.target
-          // trashcan button
-          if (item.className === 'fas fa-trash-alt'){
-            self.removeItem(item)
-          }
-          else if (item.className === 'fas fa-caret-up') { // up arrow
-            self.moveUp(item.parentNode)
-          }
-          else if (item.className === 'fas fa-caret-down') {// down arrow
-            self.moveDown(item.parentNode)
-          }
-          refreshItemCount()
+         self.setIEvents(event)
         }
         else if (event.target && event.target.nodeName === 'INPUT') {
-          // checkboxes
-          let item = event.target
-          let nextItem = item.nextSibling
-          if (item.id === 'toggle-all'){
-            self.toggleAllCheckboxes(item)
-          }
-          else if (item.type === 'checkbox') {
-            self.toggleSingleCheckbox(nextItem)
-          }
+          self.setInputEvents(event)
         }
         Create.populateList()
+      })
+
+      app.addEventListener('dbclick', function (event) {
+        refreshQueries()
+        if (event.target && event.target.nodeName === 'LI') {
+          let item = event.target
+          let textArea = item.children[1] // Get the p element with task text
+          item.replaceChild(
+            input({id: 'editTask', type: 'text', value: textArea.innerText}),
+            textArea
+          )
+        }
       })
 
     })
   },
 
-  removeItem: function (item) {
+  setIEvents: function (event) {
+    let item = event.target
+    // trashcan button
+    if (item.className === 'fas fa-trash-alt'){
+      this.removeItem(item.parentNode)
+    }
+    else if (item.className === 'fas fa-caret-up') { // up arrow
+      this.moveUp(item.parentNode)
+    }
+    else if (item.className === 'fas fa-caret-down') {// down arrow
+      this.moveDown(item.parentNode)
+    }
+    refreshItemCount()
+  },
+
+  setInputEvents: function (event) {
+    let item = event.target
+    let nextItem = item.nextSibling
+    if (item.id === 'toggle-all'){
+      self.toggleAllCheckboxes(item)
+    }
+    else if (item.type === 'checkbox') {
+      self.toggleSingleCheckbox(nextItem)
+    }
+    else if (item.id === 'editTask') {
+      item.addEventListener('keyup', function () {
+        if (event.keyCode === 13 && this.value) {
+          self.editItem(this.value, item)
+        }
+      })
+    }
+  },
+
+  removeItem: function (parentNode) {
     // get the task text value from the p element before it
-    let previousItem = item.previousSibling
-    let task = state.list.find(elem => elem.value === previousItem.innerText)
+    let taskNode = parentNode.children[1]
+    let task = state.list.find(elem => elem.value === taskNode.innerText)
     removeTaskFromList(task)
   },
 
