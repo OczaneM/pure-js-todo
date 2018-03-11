@@ -6,6 +6,7 @@ const EventDelegator = {
     document.addEventListener('DOMContentLoaded', function() {
 
       app.addEventListener('click', function(event) {
+        console.log("STATE3: ", state.list)
         refreshQueries()
         if (event.target && event.target.nodeName === 'I') {
           let item = event.target
@@ -31,8 +32,8 @@ const EventDelegator = {
           else if (item.type === 'checkbox') {
             self.toggleSingleCheckbox(nextItem)
           }
-          Create.populateList()
         }
+        Create.populateList()
       })
 
     })
@@ -51,28 +52,43 @@ const EventDelegator = {
       let sibling = item.previousSibling
       listContainer.insertBefore(item, sibling)
       // update state list
-      let index
-      for (let k = 0; k < taskContainers.length; k++){
-        if (taskContainers[k] === item) {
-          index = k
-          break
-        }
-      }
-      let temp = state.list[index];
-      state.list[index] = state.list[index - 1];
-      state.list[index - 1] = temp;
+      this.swapListItems(item, 'up')
     }
     else alert ('Can\'t move that item up')
 
   },
 
   moveDown: function (item) {
-    let sibling = item
-    if (sibling.nextSibling) {
+    if (item.nextSibling) {
+      // update DOM
+      let sibling = item
       item = sibling.nextSibling
       listContainer.insertBefore(item, sibling)
+      // update state list
+      this.swapListItems(sibling, 'down')
+      console.log('LIST2: ', state.list)
     }
     else alert ('Can\'t move that item down')
+  },
+
+  swapListItems: function (item, mode) {
+    let index
+    for (let k = 0; k < taskContainers.length; k++){
+      if (taskContainers[k] === item) {
+        index = k
+        break
+      }
+    }
+    if (mode === 'up'){
+      let temp = state.list[index]
+      state.list[index] = state.list[index - 1]
+      state.list[index - 1] = temp
+    }
+    else {
+      let temp = state.list[index + 1]
+      state.list[index + 1] = state.list[index]
+      state.list[index] = temp
+    }
   },
 
   toggleAllCheckboxes: function (item) {
