@@ -18,7 +18,7 @@ const Create = {
     )
     refreshQueries()
     this.populateList()
-    createForm.inputHandler()
+    createForm.inputHandler(taskInput)
   },
 
   populateList: function () {
