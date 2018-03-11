@@ -123,7 +123,14 @@ section {
 
 .fa-sort-up, .fa-sort-down {
   right: 45px;
-  margin: 0;
+  font-size: 22px;
+  width: .5em;
+  height: .5em;
+  margin-top: .5em;
+}
+
+.fa-sort-down {
+  margin-top: .6em;
 }
 
 .strikethrough {
