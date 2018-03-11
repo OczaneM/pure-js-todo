@@ -121,6 +121,10 @@ section {
   cursor: pointer;
 }
 
+.fa-sort-up, .fa-sort-down {
+  right: 45px;
+}
+
 .strikethrough {
   text-decoration: line-through;
   color: #838383;

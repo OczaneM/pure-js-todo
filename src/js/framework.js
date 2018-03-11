@@ -79,7 +79,7 @@ const removeTaskFromList = (task) => {
   refreshQueries()
   let index = state.list.indexOf(task)
   removeDomElem(listContainer, taskContainers[index])
-  state.list.splice(index, 1)
+  state.list.splice(index, 1) // switch for slice method
   storeListData()
 }
 
