@@ -124,7 +124,7 @@ section {
   right: 20px;
 }
 
-.fa-caret-up, .fa-caret-down {
+.fa-caret-up, .fa-caret-down{
   margin-top: .3em;
   right: 45px;
   font-size: 22px;
@@ -138,6 +138,32 @@ section {
 .strikethrough {
   text-decoration: line-through;
   color: #838383;
+}
+
+.edit-button, .cancel-button {
+  font-size: 13px;
+  right: 65px;
+  width: 3.5em;
+  height: 1.8em;
+  background-color: rgb(218, 31, 31);
+  color: white;
+  text-align: center;
+  margin-top: .5em;
+  position: absolute;
+  margin-top: 1em;
+  border: 1px solid rgb(114, 20, 20);
+}
+
+.edit-button {
+  right: 120px;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
 }
 
 footer {
