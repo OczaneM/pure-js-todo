@@ -15,12 +15,29 @@ ul {
   margin: 0;
 }
 
+li {
+  float: left;
+  color: white;
+  width: 5.2em;
+  margin: 0;
+  padding-top: 15px;
+}
+
 a {
   text-decoration: none;
 }
 
 section {
   width: 100vw;
+}
+
+input {
+  width: 75%;
+  height: 2.1em;
+  margin-left: 15px;
+  margin-top: 9px;
+  padding-left: 10px;
+  border: 0;
 }
 
 /** END GLOBAL **/
@@ -40,7 +57,7 @@ section {
 }
 
 
-.nav-header h3, li {
+.nav-header h3, .nav-header li {
   float: left;
   color: white;
   width: 5.2em;
@@ -63,15 +80,6 @@ section {
 
 .create-header {
   height: 50px;
-}
-
-#task-input-field {
-  width: 75%;
-  height: 2.1em;
-  margin-left: 15px;
-  margin-top: 9px;
-  padding-left: 10px;
-  border: 0;
 }
 
 .toggle-all-checkbox-container {
@@ -138,6 +146,11 @@ section {
 .strikethrough {
   text-decoration: line-through;
   color: #838383;
+}
+
+.editTask {
+  width: 50%;
+  border: 1px solid black;
 }
 
 .edit-button, .cancel-button {

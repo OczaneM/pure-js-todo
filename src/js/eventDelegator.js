@@ -42,6 +42,12 @@ const EventDelegator = {
     }
   },
 
+  setButtonEvents: function (event) {
+    let item = event.target
+    if (item.className === 'cancel-button show') this.hideEditButtons(item)
+    else if (item.className === 'edit-button show') this.addEditForm(event)
+  },
+
   removeItem: function (parentNode) {
     // get the task text value from the p element before it
     let taskNode = parentNode.children[1]
@@ -119,6 +125,7 @@ const EventDelegator = {
     let task = state.list.find(elem => elem.value === item.children[1].innerText)
     task.edit = 'edit-button show'
     task.cancel = 'cancel-button show'
+    Create.populateList()
   },
 
   hideEditButtons: function (item) {
@@ -126,23 +133,15 @@ const EventDelegator = {
     let task = state.list.find(elem => elem.value === parent.children[1].innerText)
     task.edit = 'edit-button hide'
     task.cancel = 'cancel-button hide'
+    Create.populateList()
   },
 
   addEditForm: function (event) {
     let item = event.target
-    item.removeEventListener('click', eventsCallBack, true)
-    console.log(eventsCallBack)
-    item.addEventListener('dblclick', function (event) {
-      alert('doube clicked!')
-      // if (event.target && event.target.nodeName === 'LI') {
-      //   let item = event.target
-      //   let textArea = item.children[1] // Get the p element with task text
-      //   item.replaceChild(
-      //     input({id: 'editTask', type: 'text', value: textArea.innerText}),
-      //     textArea
-      //   )
-      // }
-    })
+    let textArea = item.parentNode.children[1] // Get the p element with task text
+    let editForm = input({className: 'editTask', type: 'text', value: textArea.innerText})
+    item.parentNode.replaceChild(editForm, textArea)
+    this.hideEditButtons(item)
   }
 }
 
@@ -150,18 +149,19 @@ function eventsCallBack (event) {
     refreshQueries()
     if (event.target && event.target.nodeName === 'LI') {
       EventDelegator.showEditButtons(event)
+      Create.populateList()
     }
     else if (event.target && event.target.nodeName === 'I') {
      EventDelegator.setIEvents(event)
+     Create.populateList()
     }
     else if (event.target && event.target.nodeName === 'INPUT') {
       EventDelegator.setInputEvents(event)
+      Create.populateList()
     }
     else if (event.target && event.target.nodeName === 'BUTTON') {
-      let item = event.target
-      if (item.className === 'cancel-button show') EventDelegator.hideEditButtons(item)
+      EventDelegator.setButtonEvents(event)
     }
-    Create.populateList()
 }
 
 
