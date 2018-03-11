@@ -4,30 +4,7 @@ const EventDelegator = {
   delegate: function () {
     let self = this
     document.addEventListener('DOMContentLoaded', function() {
-
-      app.addEventListener('click', function(event) {
-        refreshQueries()
-        if (event.target && event.target.nodeName === 'I') {
-         self.setIEvents(event)
-        }
-        else if (event.target && event.target.nodeName === 'INPUT') {
-          self.setInputEvents(event)
-        }
-        Create.populateList()
-      })
-
-      app.addEventListener('dbclick', function (event) {
-        refreshQueries()
-        if (event.target && event.target.nodeName === 'LI') {
-          let item = event.target
-          let textArea = item.children[1] // Get the p element with task text
-          item.replaceChild(
-            input({id: 'editTask', type: 'text', value: textArea.innerText}),
-            textArea
-          )
-        }
-      })
-
+      app.addEventListener('mouseup', eventsCallBack)
     })
   },
 
@@ -50,10 +27,10 @@ const EventDelegator = {
     let item = event.target
     let nextItem = item.nextSibling
     if (item.id === 'toggle-all'){
-      self.toggleAllCheckboxes(item)
+      this.toggleAllCheckboxes(item)
     }
     else if (item.type === 'checkbox') {
-      self.toggleSingleCheckbox(nextItem)
+      this.toggleSingleCheckbox(nextItem)
     }
     else if (item.id === 'editTask') {
       item.addEventListener('keyup', function () {
@@ -134,5 +111,36 @@ const EventDelegator = {
     let task = state.list.find(elem => elem.value === item.innerText)
     task.complete = !task.complete
     task.complete ? task.strikethrough = 'strikethrough' : task.strikethrough = 'none'
+  },
+
+  addDoubleClickEvent: function (event) {
+    let item = event.target
+    item.removeEventListener('mouseup', eventsCallBack, true)
+    console.log(eventsCallBack)
+    item.addEventListener('dblclick', function (event) {
+      alert('doube clicked!')
+      // if (event.target && event.target.nodeName === 'LI') {
+      //   let item = event.target
+      //   let textArea = item.children[1] // Get the p element with task text
+      //   item.replaceChild(
+      //     input({id: 'editTask', type: 'text', value: textArea.innerText}),
+      //     textArea
+      //   )
+      // }
+    })
   }
+}
+
+function eventsCallBack (event) {
+    refreshQueries()
+    if (event.target && event.target.nodeName === 'LI') {
+      EventDelegator.addDoubleClickEvent(event)
+    }
+    else if (event.target && event.target.nodeName === 'I') {
+     EventDelegator.setIEvents(event)
+    }
+    else if (event.target && event.target.nodeName === 'INPUT') {
+      EventDelegator.setInputEvents(event)
+    }
+    Create.populateList()
 }
